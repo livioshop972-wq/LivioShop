@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 320" role="img" aria-label="Gant de massage">
+  <defs>
+    <pattern id="g-nubs" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="2.6" fill="#0f766e" opacity=".28"/>
+      <circle cx="14" cy="14" r="2.6" fill="#0f766e" opacity=".28"/>
+    </pattern>
+    <linearGradient id="g-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5eead4"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <clipPath id="g-clip">
+      <rect x="72" y="34" width="132" height="176" rx="46"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="132" cy="300" rx="76" ry="12" fill="#0f172a" opacity=".08"/>
+
+  <!-- thumb -->
+  <g transform="rotate(-14 60 150)">
+    <rect x="30" y="104" width="58" height="104" rx="29" fill="url(#g-body)"/>
+  </g>
+
+  <!-- palm -->
+  <rect x="72" y="34" width="132" height="176" rx="46" fill="url(#g-body)"/>
+  <g clip-path="url(#g-clip)">
+    <rect x="72" y="34" width="132" height="176" fill="url(#g-nubs)"/>
+  </g>
+  <rect x="72" y="34" width="132" height="176" rx="46" fill="none" stroke="#14b8a6" stroke-width="2.5" opacity=".5"/>
+
+  <!-- cuff -->
+  <rect x="66" y="206" width="144" height="52" rx="18" fill="#0f766e"/>
+  <rect x="66" y="220" width="144" height="8" fill="#ffffff" opacity=".25"/>
+  <!-- adjustable strap -->
+  <rect x="196" y="214" width="34" height="18" rx="9" fill="#0f766e"/>
+  <circle cx="213" cy="223" r="4.5" fill="#5eead4"/>
+</svg>

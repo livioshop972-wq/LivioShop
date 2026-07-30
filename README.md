@@ -1,0 +1,50 @@
+# My Fluffy Paws 🐾 — Le Kit de Toilettage Ultim'
+
+Page de vente (landing page) statique pour le kit de toilettage **My Fluffy Paws** :
+brosse auto-nettoyante, gant de massage et coupe-griffes sécurisé.
+
+## Contenu de la page
+
+1. **Haut de page** — marque, titre « Le Kit de Toilettage Ultim' », accroche
+   « Le confort de votre compagnon, en toute simplicité » et visuel du kit complet.
+2. **Offre principale** — comparatif 49,70 € à l'unité vs **29,90 €** le kit,
+   mise en avant de l'économie de 19,80 € + livraison offerte, bouton d'achat
+   principal et éléments de confiance (livraison offerte, paiement sécurisé, retour 14 jours).
+3. **Achat à l'unité** — 3 fiches produit (brosse 19,90 €, gant 14,90 €,
+   coupe-griffes 14,90 €) avec bouton « Ajouter au panier ».
+4. **Présentation des 3 accessoires** — un bloc par produit :
+   nettoyage en 1 clic + sélecteur de coloris (Rose / Bleu / Gris) pour la brosse,
+   moment de complicité pour le gant, butée de sécurité et compatibilité
+   chiens/chats pour le coupe-griffes.
+5. **FAQ** — 4 questions dépliables (entretien, sécurité du coupe-griffes,
+   chiens & chats, choix du coloris).
+
+## Structure
+
+```
+index.html            page complète
+assets/css/styles.css feuille de style
+assets/js/main.js     panier, sélecteur de coloris, interactions
+assets/img/*.svg      illustrations vectorielles des produits
+```
+
+## Lancer en local
+
+Aucune dépendance, aucun build. Ouvrez `index.html` dans un navigateur, ou :
+
+```bash
+python3 -m http.server 8000
+# puis http://localhost:8000
+```
+
+## Détails techniques
+
+- HTML/CSS/JS natifs, aucune librairie externe — la page fonctionne hors ligne.
+- Illustrations produit en SVG (légères, nettes sur tous les écrans).
+- Panier persistant via `localStorage` : quantités, coloris de brosse sélectionné,
+  total et badge du header. Le bouton « Passer commande » est un point
+  d'accroche à brancher sur une vraie solution de paiement.
+- Le coloris choisi dans la section « La Brosse auto-nettoyante » met à jour
+  l'illustration, la fiche à l'unité et la ligne correspondante du panier.
+- Responsive (grille 3 → 2 → 1 colonne), barre d'achat fixe sur mobile,
+  navigation clavier, `prefers-reduced-motion` respecté.
