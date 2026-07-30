@@ -31,6 +31,11 @@
   /* la boutique assume une identité claire : rose, menthe, blanc */
   color-scheme: light;
 
+  /* coloris de la brosse — le script les remplace au clic sur une pastille */
+  --brush-color: #f4739f;
+  --brush-light: #ffb3cd;
+  --brush-dark:  #d64d84;
+
   --container: 1140px;
   --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
@@ -52,6 +57,10 @@ body {
 }
 
 img, svg { max-width: 100%; height: auto; display: block; }
+
+/* banque d'illustrations : présente dans le DOM, jamais affichée telle quelle */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.prod-svg { width: 100%; height: auto; }
 
 h1, h2, h3 { line-height: 1.18; margin: 0 0 .5em; letter-spacing: -.02em; }
 h1 { font-size: clamp(2.1rem, 5.2vw, 3.5rem); }
@@ -155,7 +164,7 @@ a  { color: var(--pink-600); }
 .hero-badges li { display: flex; align-items: center; gap: .45rem; font-size: .93rem; font-weight: 600; color: var(--ink-soft); }
 
 .hero-figure { position: relative; margin: 0; }
-.hero-figure img { border-radius: var(--radius-lg); }
+.hero-svg { border-radius: var(--radius-lg); }
 .hero-tag {
   position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%);
   background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow);
@@ -224,7 +233,7 @@ a  { color: var(--pink-600); }
 }
 .unit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .unit-media { height: 180px; display: grid; place-items: center; margin-bottom: 1rem; }
-.unit-media img { max-height: 180px; width: auto; }
+.unit-media .prod-svg { max-height: 180px; width: auto; }
 .unit-card h3 { font-size: 1.16rem; margin-bottom: .35rem; }
 .unit-desc { color: var(--ink-soft); font-size: .92rem; margin-bottom: .8rem; }
 .unit-price { font-size: 1.7rem; font-weight: 800; margin: 0 0 1.1rem; }
@@ -244,7 +253,7 @@ a  { color: var(--pink-600); }
   border-radius: var(--radius-lg); padding: clamp(1.5rem, 4vw, 2.5rem);
   display: grid; place-items: center; min-height: 300px;
 }
-.feature-media img, .feature-media svg { max-height: 320px; width: auto; }
+.feature-media .prod-svg { max-height: 320px; width: auto; }
 
 .feature-num {
   font-size: .85rem; font-weight: 800; letter-spacing: .14em; color: var(--pink-500);
@@ -341,7 +350,7 @@ body.is-locked { overflow: hidden; }
 .cart-line { display: grid; grid-template-columns: 62px 1fr auto; gap: .9rem; align-items: center; padding: .9rem 0; border-bottom: 1px solid var(--line); }
 .cart-line:first-child { padding-top: 0; }
 .cart-thumb { background: var(--bg-soft); border-radius: 12px; padding: .35rem; display: grid; place-items: center; height: 62px; }
-.cart-thumb img { max-height: 52px; width: auto; }
+.cart-thumb svg { max-height: 52px; width: auto; }
 .cart-name { font-weight: 700; font-size: .96rem; }
 .cart-meta { font-size: .82rem; color: var(--muted); }
 .cart-qty { display: inline-flex; align-items: center; gap: .35rem; margin-top: .35rem; }
@@ -388,6 +397,228 @@ body.is-locked { overflow: hidden; }
 }
 </style>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- ============================================================
+       Illustrations produit — définies une seule fois, réutilisées
+       partout via <use>. La brosse suit la variable --brush-color,
+       ce qui permet de changer son coloris en direct.
+       ============================================================ -->
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sp-shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#0f172a" flood-opacity=".17"/>
+      </filter>
+      <filter id="sp-blur" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="8"/>
+      </filter>
+    </defs>
+
+    <!-- ---------- Brosse auto-nettoyante ---------- -->
+    <symbol id="ic-brosse" viewBox="0 0 300 400">
+      <defs>
+        <linearGradient id="br-handle" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="var(--brush-light)"/>
+          <stop offset=".42" stop-color="var(--brush-color)"/>
+          <stop offset="1" stop-color="var(--brush-dark)"/>
+        </linearGradient>
+        <linearGradient id="br-head" x1=".15" y1="0" x2=".5" y2="1">
+          <stop offset="0" stop-color="var(--brush-light)"/>
+          <stop offset=".5" stop-color="var(--brush-color)"/>
+          <stop offset="1" stop-color="var(--brush-dark)"/>
+        </linearGradient>
+        <radialGradient id="br-pad" cx=".42" cy=".35" r=".8">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset="1" stop-color="#dde3ec"/>
+        </radialGradient>
+        <pattern id="br-pins" width="14" height="14" patternUnits="userSpaceOnUse">
+          <path d="M7 12.6 V6.6 q0-2.3 2.3-2.9" fill="none" stroke="#8f9ab0" stroke-width="1.7" stroke-linecap="round"/>
+          <circle cx="9.6" cy="3.5" r="1.2" fill="#64748b"/>
+        </pattern>
+      </defs>
+
+      <ellipse cx="150" cy="384" rx="72" ry="12" fill="#0f172a" opacity=".16" filter="url(#sp-blur)"/>
+
+      <g filter="url(#sp-shadow)">
+        <!-- manche ergonomique -->
+        <path d="M118 206 C112 248 108 292 112 330 C115 362 130 376 150 376 C170 376 185 362 188 330 C192 292 188 248 182 206 Z" fill="url(#br-handle)"/>
+        <path d="M124 236 C120 270 118 302 121 328 C124 352 136 364 150 364 C164 364 176 352 179 328 C182 302 180 270 176 236 Z" fill="#0f172a" opacity=".13"/>
+        <g stroke="#ffffff" stroke-opacity=".2" stroke-width="3" stroke-linecap="round">
+          <path d="M129 262 H171"/><path d="M128 284 H172"/><path d="M128 306 H172"/><path d="M130 328 H170"/>
+        </g>
+        <path d="M126 230 C122 266 121 302 124 332" fill="none" stroke="#ffffff" stroke-opacity=".38" stroke-width="7" stroke-linecap="round"/>
+
+        <!-- bouton de rétractation des picots -->
+        <rect x="128" y="210" width="44" height="22" rx="11" fill="#ffffff" opacity=".93"/>
+        <path d="M142 224 l8-7 8 7" fill="none" stroke="var(--brush-dark)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- col -->
+        <path d="M128 172 h44 c3 12 6 24 10 36 h-64 c3-12 7-24 10-36 Z" fill="var(--brush-dark)"/>
+        <rect x="120" y="163" width="60" height="17" rx="8.5" fill="url(#br-handle)"/>
+        <rect x="120" y="163" width="60" height="6" rx="3" fill="#ffffff" opacity=".32"/>
+
+        <!-- tête -->
+        <rect x="34" y="30" width="232" height="152" rx="46" fill="url(#br-head)"/>
+        <rect x="35" y="31" width="230" height="150" rx="45" fill="none" stroke="#ffffff" stroke-opacity=".3" stroke-width="2"/>
+        <path d="M62 44 C92 34 208 34 238 44" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- coussin de picots -->
+        <rect x="52" y="46" width="196" height="116" rx="30" fill="url(#br-pad)"/>
+        <rect x="52" y="46" width="196" height="116" rx="30" fill="url(#br-pins)"/>
+        <rect x="53" y="47" width="194" height="114" rx="29" fill="none" stroke="#0f172a" stroke-opacity=".14" stroke-width="2"/>
+      </g>
+    </symbol>
+
+    <!-- ---------- Gant de massage ---------- -->
+    <symbol id="ic-gant" viewBox="0 0 300 400">
+      <defs>
+        <linearGradient id="gl-body" x1=".2" y1="0" x2=".85" y2="1">
+          <stop offset="0" stop-color="#8af3e2"/>
+          <stop offset=".5" stop-color="#2dd4bf"/>
+          <stop offset="1" stop-color="#0eb0a0"/>
+        </linearGradient>
+        <linearGradient id="gl-cuff" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#12a394"/>
+          <stop offset="1" stop-color="#0b5f58"/>
+        </linearGradient>
+        <radialGradient id="gl-nub" cx=".34" cy=".28" r=".85">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".6"/>
+          <stop offset=".55" stop-color="#0f766e" stop-opacity=".26"/>
+          <stop offset="1" stop-color="#0b5f58" stop-opacity=".45"/>
+        </radialGradient>
+        <pattern id="gl-nubs" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="6" cy="6" r="4.3" fill="url(#gl-nub)"/>
+          <circle cx="17" cy="17" r="4.3" fill="url(#gl-nub)"/>
+        </pattern>
+      </defs>
+
+      <ellipse cx="152" cy="382" rx="86" ry="12" fill="#0f172a" opacity=".16" filter="url(#sp-blur)"/>
+
+      <g filter="url(#sp-shadow)">
+        <!-- pouce -->
+        <g transform="rotate(-22 68 240)">
+          <rect x="38" y="178" width="62" height="126" rx="31" fill="url(#gl-body)"/>
+          <rect x="38" y="178" width="62" height="126" rx="31" fill="url(#gl-nubs)"/>
+        </g>
+
+        <!-- doigts -->
+        <g>
+          <g transform="rotate(10 255 148)">
+            <rect x="236" y="96" width="38" height="106" rx="19" fill="url(#gl-body)"/>
+            <rect x="236" y="96" width="38" height="106" rx="19" fill="url(#gl-nubs)"/>
+          </g>
+          <g transform="rotate(4 213 132)">
+            <rect x="192" y="62" width="42" height="142" rx="21" fill="url(#gl-body)"/>
+            <rect x="192" y="62" width="42" height="142" rx="21" fill="url(#gl-nubs)"/>
+          </g>
+          <g transform="rotate(-1 168 125)">
+            <rect x="146" y="48" width="44" height="156" rx="22" fill="url(#gl-body)"/>
+            <rect x="146" y="48" width="44" height="156" rx="22" fill="url(#gl-nubs)"/>
+          </g>
+          <g transform="rotate(-7 122 134)">
+            <rect x="100" y="64" width="44" height="142" rx="22" fill="url(#gl-body)"/>
+            <rect x="100" y="64" width="44" height="142" rx="22" fill="url(#gl-nubs)"/>
+          </g>
+        </g>
+
+        <!-- paume -->
+        <rect x="88" y="150" width="192" height="172" rx="54" fill="url(#gl-body)"/>
+        <rect x="88" y="150" width="192" height="172" rx="54" fill="url(#gl-nubs)"/>
+        <ellipse cx="144" cy="196" rx="42" ry="26" fill="#ffffff" opacity=".22" filter="url(#sp-blur)"/>
+
+        <!-- poignet -->
+        <rect x="82" y="304" width="204" height="64" rx="22" fill="url(#gl-cuff)"/>
+        <g stroke="#ffffff" stroke-opacity=".14" stroke-width="4" stroke-linecap="round">
+          <path d="M108 316 V356"/><path d="M136 316 V356"/><path d="M164 316 V356"/>
+          <path d="M192 316 V356"/><path d="M220 316 V356"/><path d="M248 316 V356"/>
+        </g>
+        <rect x="90" y="306" width="188" height="7" rx="3.5" fill="#ffffff" opacity=".13"/>
+        <!-- sangle réglable -->
+        <rect x="62" y="318" width="42" height="22" rx="11" fill="#0b5f58"/>
+        <circle cx="76" cy="329" r="5" fill="#5eead4"/>
+      </g>
+    </symbol>
+
+    <!-- ---------- Coupe-griffes sécurisé ---------- -->
+    <symbol id="ic-griffes" viewBox="0 0 300 400">
+      <defs>
+        <linearGradient id="cl-steel" x1="0" y1="0" x2="1" y2=".4">
+          <stop offset="0" stop-color="#f1f5f9"/>
+          <stop offset=".45" stop-color="#cbd5e1"/>
+          <stop offset="1" stop-color="#7d8ba1"/>
+        </linearGradient>
+        <linearGradient id="cl-grip" x1="0" y1="0" x2=".6" y2="1">
+          <stop offset="0" stop-color="#5c6b81"/>
+          <stop offset="1" stop-color="#1b2434"/>
+        </linearGradient>
+        <linearGradient id="cl-orange" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fdba74"/>
+          <stop offset="1" stop-color="#ea7317"/>
+        </linearGradient>
+      </defs>
+
+      <ellipse cx="150" cy="374" rx="92" ry="12" fill="#0f172a" opacity=".16" filter="url(#sp-blur)"/>
+
+      <g filter="url(#sp-shadow)">
+        <!-- manches -->
+        <g stroke="url(#cl-grip)" stroke-width="32" stroke-linecap="round" fill="none">
+          <path d="M150 262 L76 348"/><path d="M150 262 L224 348"/>
+        </g>
+        <g stroke="#111a29" stroke-width="26" stroke-linecap="round" fill="none">
+          <path d="M118 302 L78 346"/><path d="M182 302 L222 346"/>
+        </g>
+        <g stroke="#f97316" stroke-width="5" stroke-linecap="round" fill="none" opacity=".92">
+          <path d="M112 310 L78 348"/><path d="M188 310 L222 348"/>
+        </g>
+        <!-- ressort de sécurité -->
+        <path d="M124 300 C138 320 162 320 176 300" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+        <path d="M130 309 C142 324 158 324 170 309" fill="none" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- bras reliant les lames à l'axe -->
+        <g stroke="url(#cl-steel)" stroke-width="26" stroke-linecap="round" fill="none">
+          <path d="M124 204 L150 256"/><path d="M176 204 L150 256"/>
+        </g>
+
+        <!-- tête : les deux lames refermées forment l'anneau de coupe -->
+        <path fill="url(#cl-steel)" fill-rule="evenodd"
+              d="M150 92 a62 68 0 1 1 -0.1 0 Z M150 118 a34 40 0 1 1 -0.1 0 Z"/>
+        <path d="M150 92 V118 M150 198 V228" stroke="#8fa0b6" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M104 122 C90 142 86 172 94 198" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity=".5"/>
+        <path d="M148 100 C124 106 108 122 100 142" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity=".38"/>
+
+        <!-- butée de sécurité : elle barre l'ouverture et limite la coupe -->
+        <rect x="96" y="148" width="108" height="21" rx="10.5" fill="url(#cl-orange)"/>
+        <rect x="96" y="148" width="108" height="7" rx="3.5" fill="#ffffff" opacity=".35"/>
+        <circle cx="194" cy="158" r="7.5" fill="#b45309"/>
+        <circle cx="194" cy="156" r="2.6" fill="#fed7aa"/>
+
+        <!-- axe -->
+        <circle cx="150" cy="262" r="20" fill="#334155"/>
+        <circle cx="150" cy="262" r="8" fill="#cbd5e1"/>
+        <path d="M144 262 H156" stroke="#64748b" stroke-width="2.4" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <!-- ---------- Le kit complet ---------- -->
+    <symbol id="ic-kit" viewBox="0 0 900 420">
+      <defs>
+        <linearGradient id="kt-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fff0f5"/>
+          <stop offset=".55" stop-color="#fdf9fb"/>
+          <stop offset="1" stop-color="#eafbf6"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="14" width="900" height="392" rx="58" fill="url(#kt-bg)"/>
+      <g fill="#f4739f" opacity=".13" transform="translate(806 84) scale(1.15)">
+        <ellipse cx="0" cy="14" rx="15" ry="12"/><circle cx="-14" cy="-6" r="5.5"/><circle cx="-4" cy="-13" r="5.5"/><circle cx="7" cy="-13" r="5.5"/><circle cx="16" cy="-5" r="5.5"/>
+      </g>
+      <g fill="#2dd4bf" opacity=".16" transform="translate(70 330) scale(.95)">
+        <ellipse cx="0" cy="14" rx="15" ry="12"/><circle cx="-14" cy="-6" r="5.5"/><circle cx="-4" cy="-13" r="5.5"/><circle cx="7" cy="-13" r="5.5"/><circle cx="16" cy="-5" r="5.5"/>
+      </g>
+      <use href="#ic-brosse" width="300" height="400" transform="translate(34 6) scale(.86)"/>
+      <use href="#ic-gant" width="300" height="400" transform="translate(302 26) scale(.84)"/>
+      <use href="#ic-griffes" width="300" height="400" transform="translate(578 22) scale(.86)"/>
+    </symbol>
+  </svg>
 
   <!-- ============ 1. HAUT DE PAGE ============ -->
   <header class="site-header">
@@ -440,8 +671,10 @@ body.is-locked { overflow: hidden; }
         </div>
 
         <figure class="hero-figure">
-          <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20900%20640%22%20role%3D%22img%22%20aria-label%3D%22Le%20kit%20complet%20%3A%20brosse%20auto-nettoyante%2C%20gant%20de%20massage%20et%20coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22h-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3Cpattern%20id%3D%22h-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22h-brush%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-glove%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fff1f5%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23eefcf8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22h-clip%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3C!--%20soft%20background%20--%3E%20%3Cpath%20d%3D%22M60%20120%20q0-90%20110-96%20q180-10%20340%204%20q170%205%20300%2040%20q40%2012%2034%20120%20q-8%20150-40%20260%20q-14%2048-120%2052%20q-260%2012-500%200%20q-110-6-118-100%20q-14-160%20-6-280%20z%22%20fill%3D%22url(%23h-bg)%22%2F%3E%20%3Cg%20fill%3D%22%23f4739f%22%20opacity%3D%22.14%22%3E%20%3Cg%20transform%3D%22translate(742%20128)%20scale(1.1)%22%3E%20%3Cellipse%20cx%3D%220%22%20cy%3D%2214%22%20rx%3D%2215%22%20ry%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-14%22%20cy%3D%22-6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22-4%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%227%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%22-5%22%20r%3D%225.5%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22%232dd4bf%22%20opacity%3D%22.16%22%3E%20%3Cg%20transform%3D%22translate(126%20500)%20scale(.9)%22%3E%20%3Cellipse%20cx%3D%220%22%20cy%3D%2214%22%20rx%3D%2215%22%20ry%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-14%22%20cy%3D%22-6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22-4%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%227%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%22-5%22%20r%3D%225.5%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3C!--%20BROSSE%20--%3E%20%3Cg%20transform%3D%22translate(66%20132)%20scale(0.98)%22%3E%20%3Cellipse%20cx%3D%22110%22%20cy%3D%22298%22%20rx%3D%2270%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23h-brush)%22%2F%3E%20%3Crect%20x%3D%2296%22%20y%3D%22200%22%20width%3D%2228%22%20height%3D%2266%22%20rx%3D%2214%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.38%22%2F%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23h-brush)%22%2F%3E%20%3Crect%20x%3D%2294%22%20y%3D%22158%22%20width%3D%2232%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.85%22%2F%3E%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22166%22%20r%3D%224%22%20fill%3D%22%23f4739f%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23h-brush)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23h-bristles)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23e2e8f0%22%20stroke-width%3D%222%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20GANT%20--%3E%20%3Cg%20transform%3D%22translate(316%20128)%20scale(1.02)%22%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23h-glove)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23h-glove)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23h-clip)%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23h-nubs)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20COUPE-GRIFFES%20--%3E%20%3Cg%20transform%3D%22translate(576%20136)%20scale(0.96)%22%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23h-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23h-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3Cg%20stroke%3D%22url(%23h-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" width="900" height="640"
-               alt="Le kit complet My Fluffy Paws : la brosse auto-nettoyante rose, le gant de massage et le coupe-griffes sécurisé.">
+          <svg class="prod-svg hero-svg" width="900" height="420" viewBox="0 0 900 420" role="img"
+               aria-label="Le kit complet My Fluffy Paws : la brosse auto-nettoyante, le gant de massage et le coupe-griffes sécurisé.">
+            <use href="#ic-kit" width="900" height="420"/>
+          </svg>
           <figcaption class="hero-tag">3 accessoires · 1 seul kit</figcaption>
         </figure>
       </div>
@@ -496,7 +729,11 @@ body.is-locked { overflow: hidden; }
 
         <div class="unit-grid">
           <article class="unit-card">
-            <div class="unit-media"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20220%20320%22%20role%3D%22img%22%20aria-label%3D%22Brosse%20auto-nettoyante%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22b-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22b-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22110%22%20cy%3D%22298%22%20rx%3D%2270%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20handle%20--%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2296%22%20y%3D%22200%22%20width%3D%2228%22%20height%3D%2266%22%20rx%3D%2214%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.38%22%2F%3E%20%3C!--%20neck%20--%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3C!--%20one-click%20cleaning%20button%20--%3E%20%3Crect%20x%3D%2294%22%20y%3D%22158%22%20width%3D%2232%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.85%22%2F%3E%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22166%22%20r%3D%224%22%20fill%3D%22%23f4739f%22%2F%3E%20%3C!--%20head%20--%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23b-bristles)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23e2e8f0%22%20stroke-width%3D%222%22%2F%3E%20%3C%2Fsvg%3E" width="220" height="320" alt="Brosse auto-nettoyante"></div>
+            <div class="unit-media">
+              <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Brosse auto-nettoyante">
+                <use href="#ic-brosse" width="300" height="400"/>
+              </svg>
+            </div>
             <h3>Brosse auto-nettoyante</h3>
             <p class="unit-desc">Nettoyage en 1 clic · <span data-brush-label>Coloris&nbsp;: Rose</span></p>
             <p class="unit-price">19,90&nbsp;€</p>
@@ -504,7 +741,11 @@ body.is-locked { overflow: hidden; }
           </article>
 
           <article class="unit-card">
-            <div class="unit-media"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20320%22%20role%3D%22img%22%20aria-label%3D%22Gant%20de%20massage%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22g-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22g-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22g-clip%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%20%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20thumb%20--%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%20%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20palm%20--%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23g-clip)%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23g-nubs)%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3C!--%20cuff%20--%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3C!--%20adjustable%20strap%20--%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fsvg%3E" width="260" height="320" alt="Gant de massage"></div>
+            <div class="unit-media">
+              <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Gant de massage">
+                <use href="#ic-gant" width="300" height="400"/>
+              </svg>
+            </div>
             <h3>Gant de massage</h3>
             <p class="unit-desc">Retient les poils pendant les caresses</p>
             <p class="unit-price">14,90&nbsp;€</p>
@@ -512,7 +753,11 @@ body.is-locked { overflow: hidden; }
           </article>
 
           <article class="unit-card">
-            <div class="unit-media"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20320%22%20role%3D%22img%22%20aria-label%3D%22Coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22c-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22c-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20blades%20--%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3C!--%20safety%20stop%20--%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3C!--%20handles%20--%3E%20%3Cg%20stroke%3D%22url(%23c-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%20%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%20%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20pivot%20--%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fsvg%3E" width="280" height="320" alt="Coupe-griffes sécurisé"></div>
+            <div class="unit-media">
+              <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Coupe-griffes sécurisé">
+                <use href="#ic-griffes" width="300" height="400"/>
+              </svg>
+            </div>
             <h3>Coupe-griffes sécurisé</h3>
             <p class="unit-desc">Butée de sécurité anti-blessure</p>
             <p class="unit-price">14,90&nbsp;€</p>
@@ -534,30 +779,15 @@ body.is-locked { overflow: hidden; }
         <h2 class="section-title">Trois accessoires, trois usages</h2>
         <p class="section-sub">Chacun a son rôle&nbsp;: démêler, masser, entretenir les griffes.</p>
 
-        <!-- 1. Brosse -->
-        <article class="feature" data-brush-scope style="--brush-color:#f4739f">
+        <!-- Brosse -->
+        <article class="feature">
           <div class="feature-media">
-            <svg viewBox="0 0 220 320" class="brush-svg" role="img" aria-label="Brosse auto-nettoyante, coloris sélectionné">
-              <defs>
-                <pattern id="f-bristles" width="13" height="13" patternUnits="userSpaceOnUse">
-                  <path d="M6.5 11 V5 q0-2.4 2.4-2.4" stroke="#8b95a8" stroke-width="1.7" fill="none" stroke-linecap="round"/>
-                </pattern>
-              </defs>
-              <ellipse cx="110" cy="298" rx="70" ry="12" fill="#0f172a" opacity=".08"/>
-              <rect x="86" y="176" width="48" height="118" rx="24" fill="var(--brush-color)"/>
-              <rect x="96" y="200" width="28" height="66" rx="14" fill="#fff" opacity=".38"/>
-              <rect x="92" y="150" width="36" height="40" rx="12" fill="var(--brush-color)"/>
-              <rect x="94" y="158" width="32" height="16" rx="8" fill="#fff" opacity=".85"/>
-              <circle cx="110" cy="166" r="4" fill="var(--brush-color)"/>
-              <rect x="24" y="26" width="172" height="140" rx="38" fill="var(--brush-color)"/>
-              <rect x="38" y="40" width="144" height="98" rx="24" fill="#f8fafc"/>
-              <rect x="38" y="40" width="144" height="98" rx="24" fill="url(#f-bristles)"/>
-              <rect x="38" y="40" width="144" height="98" rx="24" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+            <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Brosse auto-nettoyante, coloris sélectionné">
+              <use href="#ic-brosse" width="300" height="400"/>
             </svg>
           </div>
 
           <div class="feature-body">
-            <p class="feature-num">01</p>
             <h3>La Brosse auto-nettoyante</h3>
             <p>
               Un appui sur le bouton et les picots se rétractent&nbsp;: les poils se détachent d'un bloc,
@@ -574,15 +804,15 @@ body.is-locked { overflow: hidden; }
               <p class="colors-title" id="titre-couleurs">Choisissez votre coloris&nbsp;:</p>
               <div class="swatches" role="radiogroup" aria-labelledby="titre-couleurs">
                 <button type="button" class="swatch is-active" role="radio" aria-checked="true"
-                        data-color="Rose" data-hex="#f4739f" style="--sw:#f4739f">
+                        data-color="Rose" style="--sw:#f4739f">
                   <span class="sr-only">Rose</span>
                 </button>
                 <button type="button" class="swatch" role="radio" aria-checked="false"
-                        data-color="Bleu" data-hex="#4a90d9" style="--sw:#4a90d9">
+                        data-color="Bleu" style="--sw:#4a90d9">
                   <span class="sr-only">Bleu</span>
                 </button>
                 <button type="button" class="swatch" role="radio" aria-checked="false"
-                        data-color="Gris" data-hex="#8a94a6" style="--sw:#8a94a6">
+                        data-color="Gris" style="--sw:#8a94a6">
                   <span class="sr-only">Gris</span>
                 </button>
               </div>
@@ -591,13 +821,14 @@ body.is-locked { overflow: hidden; }
           </div>
         </article>
 
-        <!-- 2. Gant -->
+        <!-- Gant -->
         <article class="feature feature-reverse">
           <div class="feature-media">
-            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20320%22%20role%3D%22img%22%20aria-label%3D%22Gant%20de%20massage%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22g-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22g-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22g-clip%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%20%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20thumb%20--%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%20%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20palm%20--%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23g-clip)%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23g-nubs)%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3C!--%20cuff%20--%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3C!--%20adjustable%20strap%20--%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fsvg%3E" width="260" height="320" alt="Gant de massage avec picots souples">
+            <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Gant de massage avec picots souples">
+              <use href="#ic-gant" width="300" height="400"/>
+            </svg>
           </div>
           <div class="feature-body">
-            <p class="feature-num">02</p>
             <h3>Le Gant de massage</h3>
             <p>
               Il ne ressemble pas à un outil de toilettage&nbsp;— et c'est bien l'idée.
@@ -613,13 +844,14 @@ body.is-locked { overflow: hidden; }
           </div>
         </article>
 
-        <!-- 3. Coupe-griffes -->
+        <!-- Coupe-griffes -->
         <article class="feature">
           <div class="feature-media">
-            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20320%22%20role%3D%22img%22%20aria-label%3D%22Coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22c-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22c-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20blades%20--%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3C!--%20safety%20stop%20--%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3C!--%20handles%20--%3E%20%3Cg%20stroke%3D%22url(%23c-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%20%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%20%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20pivot%20--%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fsvg%3E" width="280" height="320" alt="Coupe-griffes avec butée de sécurité orange">
+            <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Coupe-griffes avec butée de sécurité orange">
+              <use href="#ic-griffes" width="300" height="400"/>
+            </svg>
           </div>
           <div class="feature-body">
-            <p class="feature-num">03</p>
             <h3>Le Coupe-griffes sécurisé</h3>
             <p>
               La <strong>butée de sécurité anti-blessure</strong> limite la longueur coupée&nbsp;:
@@ -773,7 +1005,8 @@ body.is-locked { overflow: hidden; }
     'kit': {
       nom: "Kit de Toilettage Ultim'",
       prix: 29.90,
-      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20380%20160%22%20role%3D%22img%22%20aria-label%3D%22Kit%20complet%20%3A%20brosse%2C%20gant%20et%20coupe-griffes%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22k-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3Cpattern%20id%3D%22k-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22k-brush%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22k-glove%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22k-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22k-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22k-clip%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cg%20transform%3D%22translate(0%203)%20scale(0.5)%22%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23k-brush)%22%2F%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23k-brush)%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23k-brush)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23k-bristles)%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(108%2021)%20scale(0.5)%22%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23k-glove)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23k-glove)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23k-clip)%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23k-nubs)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(228%2028)%20scale(0.5)%22%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23k-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23k-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Cg%20stroke%3D%22url(%23k-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E',
+      icone: 'ic-kit',
+      vue: '0 0 900 420',
       note: 'Brosse + Gant + Coupe-griffes',
       couleur: true,
       livraisonOfferte: true
@@ -781,25 +1014,33 @@ body.is-locked { overflow: hidden; }
     'brosse': {
       nom: 'Brosse auto-nettoyante',
       prix: 19.90,
-      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20220%20320%22%20role%3D%22img%22%20aria-label%3D%22Brosse%20auto-nettoyante%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22b-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22b-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22110%22%20cy%3D%22298%22%20rx%3D%2270%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20handle%20--%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2296%22%20y%3D%22200%22%20width%3D%2228%22%20height%3D%2266%22%20rx%3D%2214%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.38%22%2F%3E%20%3C!--%20neck%20--%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3C!--%20one-click%20cleaning%20button%20--%3E%20%3Crect%20x%3D%2294%22%20y%3D%22158%22%20width%3D%2232%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.85%22%2F%3E%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22166%22%20r%3D%224%22%20fill%3D%22%23f4739f%22%2F%3E%20%3C!--%20head%20--%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23b-bristles)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23e2e8f0%22%20stroke-width%3D%222%22%2F%3E%20%3C%2Fsvg%3E',
+      icone: 'ic-brosse',
+      vue: '0 0 300 400',
       note: 'Nettoyage en 1 clic',
       couleur: true
     },
     'gant': {
       nom: 'Gant de massage',
       prix: 14.90,
-      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20320%22%20role%3D%22img%22%20aria-label%3D%22Gant%20de%20massage%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22g-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22g-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22g-clip%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%20%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20thumb%20--%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%20%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20palm%20--%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23g-clip)%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23g-nubs)%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3C!--%20cuff%20--%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3C!--%20adjustable%20strap%20--%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fsvg%3E',
+      icone: 'ic-gant',
+      vue: '0 0 300 400',
       note: 'Retient les poils'
     },
     'coupe-griffes': {
       nom: 'Coupe-griffes sécurisé',
       prix: 14.90,
-      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20320%22%20role%3D%22img%22%20aria-label%3D%22Coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22c-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22c-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20blades%20--%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3C!--%20safety%20stop%20--%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3C!--%20handles%20--%3E%20%3Cg%20stroke%3D%22url(%23c-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%20%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%20%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20pivot%20--%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fsvg%3E',
+      icone: 'ic-griffes',
+      vue: '0 0 300 400',
       note: 'Butée anti-blessure'
     }
   };
 
-  var COULEURS = { 'Rose': '#f4739f', 'Bleu': '#4a90d9', 'Gris': '#8a94a6' };
+  /* Chaque coloris fournit ses trois nuances : le dégradé du produit en dépend. */
+  var COULEURS = {
+    'Rose': { base: '#f4739f', clair: '#ffb3cd', fonce: '#d64d84' },
+    'Bleu': { base: '#4a90d9', clair: '#93c3f2', fonce: '#2f6dab' },
+    'Gris': { base: '#8a94a6', clair: '#c6cdd9', fonce: '#626c7d' }
+  };
 
   /* ---------- utilitaires ---------- */
 
@@ -828,16 +1069,19 @@ body.is-locked { overflow: hidden; }
 
   /* ---------- coloris de la brosse ---------- */
 
-  var scopeBrosse = document.querySelector('[data-brush-scope]');
   var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
 
   function appliquerCouleur(nom) {
     couleurBrosse = COULEURS[nom] ? nom : 'Rose';
     ecrire(STORAGE_COLOR, couleurBrosse);
 
-    if (scopeBrosse) {
-      scopeBrosse.style.setProperty('--brush-color', COULEURS[couleurBrosse]);
-    }
+    // les variables vivent sur la racine : toutes les brosses de la page suivent
+    var teinte = COULEURS[couleurBrosse];
+    var racine = document.documentElement;
+    racine.style.setProperty('--brush-color', teinte.base);
+    racine.style.setProperty('--brush-light', teinte.clair);
+    racine.style.setProperty('--brush-dark', teinte.fonce);
+
     swatches.forEach(function (btn) {
       var actif = btn.dataset.color === couleurBrosse;
       btn.classList.toggle('is-active', actif);
@@ -950,7 +1194,11 @@ body.is-locked { overflow: hidden; }
           var meta = produit.note + (ligne.couleur ? ' · ' + ligne.couleur : '');
 
           el.innerHTML =
-            '<div class="cart-thumb"><img src="' + produit.img + '" alt=""></div>' +
+            '<div class="cart-thumb">' +
+              '<svg viewBox="' + produit.vue + '" aria-hidden="true" focusable="false">' +
+                '<use href="#' + produit.icone + '"></use>' +
+              '</svg>' +
+            '</div>' +
             '<div>' +
               '<div class="cart-name"></div>' +
               '<div class="cart-meta"></div>' +

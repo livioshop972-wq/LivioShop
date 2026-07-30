@@ -11,7 +11,8 @@
     'kit': {
       nom: "Kit de Toilettage Ultim'",
       prix: 29.90,
-      img: 'assets/img/kit-thumb.svg',
+      icone: 'ic-kit',
+      vue: '0 0 900 420',
       note: 'Brosse + Gant + Coupe-griffes',
       couleur: true,
       livraisonOfferte: true
@@ -19,25 +20,33 @@
     'brosse': {
       nom: 'Brosse auto-nettoyante',
       prix: 19.90,
-      img: 'assets/img/brosse.svg',
+      icone: 'ic-brosse',
+      vue: '0 0 300 400',
       note: 'Nettoyage en 1 clic',
       couleur: true
     },
     'gant': {
       nom: 'Gant de massage',
       prix: 14.90,
-      img: 'assets/img/gant.svg',
+      icone: 'ic-gant',
+      vue: '0 0 300 400',
       note: 'Retient les poils'
     },
     'coupe-griffes': {
       nom: 'Coupe-griffes sécurisé',
       prix: 14.90,
-      img: 'assets/img/coupe-griffes.svg',
+      icone: 'ic-griffes',
+      vue: '0 0 300 400',
       note: 'Butée anti-blessure'
     }
   };
 
-  var COULEURS = { 'Rose': '#f4739f', 'Bleu': '#4a90d9', 'Gris': '#8a94a6' };
+  /* Chaque coloris fournit ses trois nuances : le dégradé du produit en dépend. */
+  var COULEURS = {
+    'Rose': { base: '#f4739f', clair: '#ffb3cd', fonce: '#d64d84' },
+    'Bleu': { base: '#4a90d9', clair: '#93c3f2', fonce: '#2f6dab' },
+    'Gris': { base: '#8a94a6', clair: '#c6cdd9', fonce: '#626c7d' }
+  };
 
   /* ---------- utilitaires ---------- */
 
@@ -66,16 +75,19 @@
 
   /* ---------- coloris de la brosse ---------- */
 
-  var scopeBrosse = document.querySelector('[data-brush-scope]');
   var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
 
   function appliquerCouleur(nom) {
     couleurBrosse = COULEURS[nom] ? nom : 'Rose';
     ecrire(STORAGE_COLOR, couleurBrosse);
 
-    if (scopeBrosse) {
-      scopeBrosse.style.setProperty('--brush-color', COULEURS[couleurBrosse]);
-    }
+    // les variables vivent sur la racine : toutes les brosses de la page suivent
+    var teinte = COULEURS[couleurBrosse];
+    var racine = document.documentElement;
+    racine.style.setProperty('--brush-color', teinte.base);
+    racine.style.setProperty('--brush-light', teinte.clair);
+    racine.style.setProperty('--brush-dark', teinte.fonce);
+
     swatches.forEach(function (btn) {
       var actif = btn.dataset.color === couleurBrosse;
       btn.classList.toggle('is-active', actif);
@@ -188,7 +200,11 @@
           var meta = produit.note + (ligne.couleur ? ' · ' + ligne.couleur : '');
 
           el.innerHTML =
-            '<div class="cart-thumb"><img src="' + produit.img + '" alt=""></div>' +
+            '<div class="cart-thumb">' +
+              '<svg viewBox="' + produit.vue + '" aria-hidden="true" focusable="false">' +
+                '<use href="#' + produit.icone + '"></use>' +
+              '</svg>' +
+            '</div>' +
             '<div>' +
               '<div class="cart-name"></div>' +
               '<div class="cart-meta"></div>' +

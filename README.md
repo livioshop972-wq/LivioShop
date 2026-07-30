@@ -40,18 +40,20 @@ python3 -m http.server 8000
 ## Détails techniques
 
 - HTML/CSS/JS natifs, aucune librairie externe — la page fonctionne hors ligne.
-- Illustrations produit en SVG (légères, nettes sur tous les écrans).
+- Illustrations produit dessinées en SVG (matières, reflets et ombres portées),
+  définies une seule fois dans un sprite `<symbol>` et réutilisées via `<use>`.
 - Panier persistant via `localStorage` : quantités, coloris de brosse sélectionné,
   total et badge du header. Le bouton « Passer commande » est un point
   d'accroche à brancher sur une vraie solution de paiement.
-- Le coloris choisi dans la section « La Brosse auto-nettoyante » met à jour
-  l'illustration, la fiche à l'unité et la ligne correspondante du panier.
+- Le coloris choisi dans la section « La Brosse auto-nettoyante » pilote les
+  variables `--brush-color/-light/-dark` : toutes les brosses de la page
+  changent de teinte, y compris celle du kit et la vignette du panier.
 - Responsive (grille 3 → 2 → 1 colonne), barre d'achat fixe sur mobile,
   navigation clavier, `prefers-reduced-motion` respecté.
 
 ## Version en un seul fichier
 
 `node build.js` génère `dist/site.html` : la page entière (CSS, JS et
-illustrations compris) dans un fichier unique, sans dossier `assets/`.
+illustrations comprises) dans un fichier unique, sans dossier `assets/`.
 Pratique pour l'envoyer par mail, l'héberger n'importe où, ou simplement
 l'ouvrir d'un double-clic.
