@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merci pour votre commande — My Fluffy Paws</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">🐾</span>
+        <span class="brand-name">My Fluffy Paws</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container container-narrow merci">
+      <p class="merci-ico" aria-hidden="true">🐾</p>
+      <h1>Merci pour votre commande&nbsp;!</h1>
+      <p class="lead">Votre paiement est bien passé.</p>
+
+      <p>
+        Un e-mail de confirmation vient de vous être envoyé, avec le récapitulatif
+        de votre commande. Nous préparons votre colis&nbsp;: comptez
+        <strong>3 à 7 jours ouvrés</strong> pour la livraison.
+      </p>
+
+      <ul class="trust merci-trust">
+        <li><span class="trust-ico" aria-hidden="true">📧</span> <strong>Confirmation envoyée</strong><small>Pensez à vérifier vos spams</small></li>
+        <li><span class="trust-ico" aria-hidden="true">🚚</span> <strong>Livraison offerte</strong><small>3 à 7 jours ouvrés</small></li>
+        <li><span class="trust-ico" aria-hidden="true">↩️</span> <strong>Retour sous 14 jours</strong><small>Satisfait ou remboursé</small></li>
+      </ul>
+
+      <p class="merci-actions">
+        <a class="btn btn-primary btn-lg" href="index.html">Retour à la boutique</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="brand brand-footer"><span aria-hidden="true">🐾</span> My Fluffy Paws</p>
+      <p class="footer-tag">Le confort de votre compagnon, en toute simplicité.</p>
+      <p class="footer-legal">© <span data-year>2026</span> My Fluffy Paws — Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // La commande est payée : le panier n'a plus lieu d'être.
+    try { localStorage.removeItem('mfp-cart'); } catch (e) { /* stockage indisponible */ }
+    document.querySelector('[data-year]').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>

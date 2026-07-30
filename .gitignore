@@ -1,0 +1,10 @@
+# Secrets : ne doivent jamais être versionnés
+.env
+.env.*
+!.env.example
+
+# Dépendances et artefacts d'outils
+node_modules/
+.vercel/
+.netlify/
+.DS_Store

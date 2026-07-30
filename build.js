@@ -35,6 +35,9 @@ js = js.replace(refPhoto, (_, f) => dataUri(f));
 /* Le CSS et le JS deviennent internes */
 corps = corps.replace(/\s*<script src="[^"]*"><\/script>/, '');
 
+/* Le fichier unique est une démo hors ligne : aucun serveur pour encaisser. */
+const drapeauDemo = '<script>window.MFP_DEMO = true;</script>';
+
 const sortie = [
   // en tête du fichier : sans elle, les accents et le « € » s'affichent de travers
   '<meta charset="utf-8">',
@@ -43,6 +46,7 @@ const sortie = [
   css.trim(),
   '</style>',
   corps.trim(),
+  drapeauDemo,
   '<script>',
   js.trim(),
   '</script>',

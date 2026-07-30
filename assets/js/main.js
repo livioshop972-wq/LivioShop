@@ -7,14 +7,16 @@
   var STORAGE_CART = 'mfp-cart';
   var STORAGE_COLOR = 'mfp-brush-color';
 
+  /* Point d'entrée du paiement : la fonction serverless qui parle à Stripe. */
+  var API_CHECKOUT = '/api/checkout';
+
   var PRODUITS = {
     'kit': {
       nom: "Kit de Toilettage Ultim'",
       prix: 29.90,
       img: 'assets/img/photos/kit-complet.webp',
       note: 'Brosse + Gant + Coupe-griffes',
-      couleur: true,
-      livraisonOfferte: true
+      couleur: true
     },
     'brosse': {
       nom: 'Brosse auto-nettoyante',
@@ -138,12 +140,6 @@
     rendre();
   }
 
-  function supprimer(cle) {
-    panier = panier.filter(function (l) { return l.cle !== cle; });
-    sauver();
-    rendre();
-  }
-
   function sauver() { ecrire(STORAGE_CART, panier); }
 
   function total() {
@@ -213,10 +209,7 @@
     if (elTotal) { elTotal.textContent = euros(total()); }
 
     if (elShip) {
-      var avecKit = panier.some(function (l) { return PRODUITS[l.id] && PRODUITS[l.id].livraisonOfferte; });
-      elShip.textContent = panier.length
-        ? (avecKit ? '🚚 Livraison offerte' : '🚚 Livraison offerte dès le kit complet')
-        : '';
+      elShip.textContent = panier.length ? '🚚 Livraison offerte' : '';
     }
   }
 
@@ -258,14 +251,58 @@
     btn.addEventListener('click', function () { ajouter(btn.dataset.add); });
   });
 
+  /* ---------- passage en caisse ---------- */
+
   var checkout = document.querySelector('[data-checkout]');
+
   if (checkout) {
     checkout.addEventListener('click', function () {
       if (!panier.length) {
         afficherToast('Votre panier est encore vide 🐾');
         return;
       }
-      afficherToast('Commande de ' + euros(total()) + ' — paiement à connecter');
+
+      // La version de démonstration n'a pas de serveur derrière elle.
+      if (window.MFP_DEMO) {
+        afficherToast('Aperçu de la boutique : le paiement est désactivé ici.');
+        return;
+      }
+
+      var libelle = checkout.textContent;
+      checkout.disabled = true;
+      checkout.textContent = 'Redirection vers le paiement…';
+
+      function echec(message) {
+        checkout.disabled = false;
+        checkout.textContent = libelle;
+        afficherToast(message);
+      }
+
+      fetch(API_CHECKOUT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lignes: panier.map(function (l) {
+            return { id: l.id, qte: l.qte, couleur: l.couleur };
+          })
+        })
+      })
+        .then(function (r) {
+          return r.json()
+            .catch(function () { return {}; })
+            .then(function (donnees) { return { ok: r.ok, donnees: donnees }; });
+        })
+        .then(function (resultat) {
+          if (resultat.ok && resultat.donnees.url) {
+            // Stripe prend le relais : carte, adresse et confirmation.
+            window.location.href = resultat.donnees.url;
+            return;
+          }
+          echec(resultat.donnees.erreur || "La commande n'a pas pu être ouverte.");
+        })
+        .catch(function () {
+          echec('Connexion impossible. Vérifiez votre réseau et réessayez.');
+        });
     });
   }
 

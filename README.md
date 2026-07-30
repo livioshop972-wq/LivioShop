@@ -22,11 +22,20 @@ brosse auto-nettoyante, gant de massage et coupe-griffes sécurisé.
 ## Structure
 
 ```
-index.html            page complète
-assets/css/styles.css feuille de style
-assets/js/main.js     panier, sélecteur de coloris, interactions
-assets/img/*.svg      illustrations vectorielles des produits
+index.html              page de vente
+merci.html              confirmation après paiement
+api/checkout.js         création de la session de paiement Stripe
+test/checkout.test.js   tests de la fonction de paiement
+assets/css/styles.css   feuille de style
+assets/js/main.js       panier, coloris, passage en caisse
+assets/img/photos/      photos produit
+build.js                génère dist/site.html (fichier unique)
 ```
+
+## Mettre la boutique en ligne
+
+Voir **[PAIEMENT.md](PAIEMENT.md)** : création du compte Stripe, déploiement
+sur Vercel, test avec une carte fictive, puis passage en production.
 
 ## Lancer en local
 
@@ -46,8 +55,11 @@ python3 -m http.server 8000
   `*-produit` (1024 px) dans les blocs de présentation. Chargement différé
   sous la ligne de flottaison.
 - Panier persistant via `localStorage` : quantités, coloris de brosse sélectionné,
-  total et badge du header. Le bouton « Passer commande » est un point
-  d'accroche à brancher sur une vraie solution de paiement.
+  total et badge du header.
+- Paiement par carte via Stripe Checkout. Les prix sont recalculés côté serveur
+  dans `api/checkout.js` : le navigateur n'envoie que des identifiants et des
+  quantités, jamais de montant. Voir [PAIEMENT.md](PAIEMENT.md) pour la mise en
+  route, et `node test/checkout.test.js` pour la suite de tests.
 - Le coloris choisi dans la section « La Brosse auto-nettoyante » est mémorisé,
   affiché sur la fiche à l'unité et rattaché à la ligne du panier. Les photos
   montrant le modèle rose, la page le précise sous les pastilles.
@@ -58,5 +70,6 @@ python3 -m http.server 8000
 
 `node build.js` génère `dist/site.html` : la page entière (CSS, JS et
 photos comprises) dans un fichier unique, sans dossier `assets/`.
-Pratique pour l'envoyer par mail, l'héberger n'importe où, ou simplement
-l'ouvrir d'un double-clic.
+Pratique pour l'envoyer par mail, le montrer à quelqu'un ou l'ouvrir d'un
+double-clic. C'est une **démonstration** : sans serveur derrière, le bouton
+« Passer commande » indique que le paiement est désactivé.
