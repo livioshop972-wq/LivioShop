@@ -40,9 +40,11 @@ python3 -m http.server 8000
 ## Détails techniques
 
 - HTML/CSS/JS natifs, aucune librairie externe — la page fonctionne hors ligne.
-- Photos produit en WebP (`assets/img/photos/`), en deux tailles : 1024 px pour
-  le visuel principal et les blocs de présentation, 640 px pour les fiches à
-  l'unité et les vignettes du panier. Chargement différé sous la ligne de flottaison.
+- Photos en WebP (`assets/img/photos/`), chacune n'apparaissant qu'une fois :
+  `kit-complet` en visuel principal, les `*-vignette` (640 px) sur les fiches à
+  l'unité et dans le panier — des mises en situation avec un animal —, les
+  `*-produit` (1024 px) dans les blocs de présentation. Chargement différé
+  sous la ligne de flottaison.
 - Panier persistant via `localStorage` : quantités, coloris de brosse sélectionné,
   total et badge du header. Le bouton « Passer commande » est un point
   d'accroche à brancher sur une vraie solution de paiement.
