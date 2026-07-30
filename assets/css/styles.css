@@ -25,6 +25,9 @@
   --shadow:    0 14px 40px rgba(31,41,55,.10);
   --shadow-lg: 0 28px 70px rgba(224,86,138,.20);
 
+  /* la boutique assume une identité claire : rose, menthe, blanc */
+  color-scheme: light;
+
   --container: 1140px;
   --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 }

@@ -1,0 +1,1078 @@
+<meta charset="utf-8">
+<title>My Fluffy Paws — Le Kit de Toilettage Ultim' à 29,90 €</title>
+<style>
+/* ==========================================================================
+   My Fluffy Paws — Kit de Toilettage Ultim'
+   ========================================================================== */
+
+:root {
+  --pink-50:  #fff1f5;
+  --pink-100: #ffe1ea;
+  --pink-400: #ff9ec0;
+  --pink-500: #f4739f;
+  --pink-600: #e0568a;
+  --teal-100: #d9faf3;
+  --teal-500: #2dd4bf;
+  --teal-700: #0f766e;
+  --ink:      #1f2937;
+  --ink-soft: #55607a;
+  --muted:    #7b8598;
+  --line:     #e9edf4;
+  --bg:       #ffffff;
+  --bg-soft:  #fdf7f9;
+  --amber:    #f59e0b;
+
+  --radius:   18px;
+  --radius-lg:26px;
+  --shadow-sm: 0 2px 10px rgba(31,41,55,.06);
+  --shadow:    0 14px 40px rgba(31,41,55,.10);
+  --shadow-lg: 0 28px 70px rgba(224,86,138,.20);
+
+  /* la boutique assume une identité claire : rose, menthe, blanc */
+  color-scheme: light;
+
+  --container: 1140px;
+  --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* l'attribut hidden doit toujours l'emporter sur les display: flex/grid ci-dessous */
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { line-height: 1.18; margin: 0 0 .5em; letter-spacing: -.02em; }
+h1 { font-size: clamp(2.1rem, 5.2vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); }
+h3 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+p  { margin: 0 0 1rem; }
+a  { color: var(--pink-600); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 200;
+  background: var(--pink-500); color: #fff; padding: .6rem 1rem;
+  border-radius: 10px; text-decoration: none; transition: top .2s;
+}
+.skip-link:focus { top: 12px; }
+
+:focus-visible { outline: 3px solid var(--pink-500); outline-offset: 3px; border-radius: 8px; }
+
+.container { width: min(100% - 2.5rem, var(--container)); margin-inline: auto; }
+.container-narrow { width: min(100% - 2.5rem, 800px); }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  font: inherit; font-weight: 700; text-decoration: none; text-align: center;
+  padding: .85rem 1.4rem; border-radius: 999px; border: 2px solid transparent;
+  cursor: pointer; transition: transform .15s, box-shadow .2s, background .2s, color .2s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-lg { padding: 1.05rem 2rem; font-size: 1.06rem; }
+.btn-block { width: 100%; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-400), var(--pink-600));
+  color: #fff; box-shadow: var(--shadow-lg);
+}
+.btn-primary:hover { box-shadow: 0 16px 34px rgba(224,86,138,.34); transform: translateY(-2px); }
+
+.btn-outline { background: #fff; color: var(--pink-600); border-color: var(--pink-100); }
+.btn-outline:hover { border-color: var(--pink-500); background: var(--pink-50); }
+
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--pink-500); color: var(--pink-600); }
+
+.btn-light { background: #fff; color: var(--pink-600); box-shadow: var(--shadow); }
+.btn-light:hover { transform: translateY(-2px); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner { display: flex; align-items: center; gap: 1.5rem; min-height: 72px; }
+
+.brand { display: flex; align-items: center; gap: .5rem; font-weight: 800; font-size: 1.16rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+.brand-mark { font-size: 1.4rem; }
+.brand-name { white-space: nowrap; }
+
+.site-nav { margin-left: auto; display: flex; gap: 1.5rem; }
+.site-nav a { color: var(--ink-soft); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.site-nav a:hover { color: var(--pink-600); }
+
+.cart-btn {
+  position: relative; margin-left: auto; background: var(--pink-50); border: 1px solid var(--pink-100);
+  width: 46px; height: 46px; border-radius: 50%; font-size: 1.15rem; cursor: pointer;
+  display: grid; place-items: center;
+}
+.site-nav + .cart-btn { margin-left: 0; }
+.cart-btn:hover { background: var(--pink-100); }
+.cart-count {
+  position: absolute; top: -4px; right: -4px; min-width: 21px; height: 21px; padding: 0 5px;
+  border-radius: 999px; background: var(--pink-600); color: #fff;
+  font-size: .74rem; font-weight: 800; display: grid; place-items: center;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(170deg, var(--pink-50) 0%, #fff 62%);
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 5vw, 3.5rem);
+}
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: #fff; border: 1px solid var(--pink-100); color: var(--pink-600);
+  font-weight: 800; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .4rem .9rem; border-radius: 999px; box-shadow: var(--shadow-sm); margin-bottom: 1.1rem;
+}
+.lead { font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--pink-600); font-weight: 700; margin-bottom: .9rem; }
+.hero-text { color: var(--ink-soft); max-width: 52ch; font-size: 1.03rem; }
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.6rem 0 1.4rem; }
+
+.hero-badges { list-style: none; display: flex; flex-wrap: wrap; gap: 1.2rem; padding: 0; margin: 0; }
+.hero-badges li { display: flex; align-items: center; gap: .45rem; font-size: .93rem; font-weight: 600; color: var(--ink-soft); }
+
+.hero-figure { position: relative; margin: 0; }
+.hero-figure img { border-radius: var(--radius-lg); }
+.hero-tag {
+  position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%);
+  background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow);
+  padding: .5rem 1.1rem; border-radius: 999px; font-weight: 700; font-size: .88rem; white-space: nowrap;
+}
+
+/* ---------- Sections ---------- */
+.section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+.section-soft { background: var(--bg-soft); }
+.section-eyebrow { text-align: center; color: var(--pink-600); font-weight: 800; text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; margin-bottom: .5rem; }
+.section-title { text-align: center; }
+.section-sub { text-align: center; color: var(--ink-soft); max-width: 58ch; margin: 0 auto 2.6rem; }
+
+/* ---------- Offre ---------- */
+.offer-card {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow); padding: clamp(1.2rem, 3vw, 2.2rem);
+}
+.compare { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(1rem, 2.5vw, 2rem); align-items: stretch; }
+
+.compare-col { border-radius: var(--radius); padding: clamp(1.2rem, 2.5vw, 1.8rem); }
+.compare-alt { background: #f7f8fb; border: 1px dashed #d9dfea; }
+.compare-label { font-weight: 800; color: var(--ink-soft); font-size: .95rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1rem; }
+
+.compare-list { list-style: none; margin: 0 0 1rem; padding: 0; }
+.compare-list li { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid #e6eaf2; color: var(--ink-soft); font-size: .97rem; }
+.compare-list li span:last-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+
+.compare-total { display: flex; justify-content: space-between; align-items: baseline; font-weight: 800; margin: 0; }
+.price-old { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 2px; }
+
+.compare-main {
+  position: relative; background: linear-gradient(160deg, var(--pink-50), #fff 70%);
+  border: 2px solid var(--pink-500); text-align: center;
+}
+.ribbon {
+  position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+  background: var(--pink-600); color: #fff; font-weight: 800; font-size: .78rem;
+  letter-spacing: .08em; text-transform: uppercase; padding: .35rem 1rem; border-radius: 999px;
+  margin: 0; white-space: nowrap;
+}
+.compare-main .compare-label { color: var(--pink-600); }
+.price-now { font-size: clamp(2.8rem, 7vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -.03em; margin: 0 0 .6rem; }
+.price-now span { font-size: .45em; vertical-align: super; }
+
+.save {
+  display: inline-block; background: var(--teal-100); color: var(--teal-700);
+  font-weight: 800; padding: .6rem 1.2rem; border-radius: 999px; margin-bottom: 1.4rem; font-size: 1.02rem;
+}
+.save span { display: block; font-size: .86rem; font-weight: 700; opacity: .9; }
+
+.micro { font-size: .85rem; color: var(--muted); margin: .8rem 0 0; }
+.micro.center { text-align: center; }
+
+.trust { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1.6rem 0 0; margin: 1.6rem 0 0; border-top: 1px solid var(--line); }
+.trust li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .15rem; font-size: .95rem; }
+.trust-ico { font-size: 1.5rem; }
+.trust small { color: var(--muted); }
+
+/* ---------- Achat à l'unité ---------- */
+.unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+.unit-card {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.5rem; text-align: center; display: flex; flex-direction: column;
+  box-shadow: var(--shadow-sm); transition: transform .18s, box-shadow .2s;
+}
+.unit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.unit-media { height: 180px; display: grid; place-items: center; margin-bottom: 1rem; }
+.unit-media img { max-height: 180px; width: auto; }
+.unit-card h3 { font-size: 1.16rem; margin-bottom: .35rem; }
+.unit-desc { color: var(--ink-soft); font-size: .92rem; margin-bottom: .8rem; }
+.unit-price { font-size: 1.7rem; font-weight: 800; margin: 0 0 1.1rem; }
+.unit-card .btn { margin-top: auto; }
+.unit-note { text-align: center; color: var(--ink-soft); margin-top: 1.8rem; }
+
+/* ---------- Accessoires ---------- */
+.feature {
+  display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center; padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+}
+.feature + .feature { border-top: 1px solid var(--line); }
+.feature-reverse .feature-media { order: 2; }
+
+.feature-media {
+  background: linear-gradient(160deg, var(--pink-50), var(--teal-100));
+  border-radius: var(--radius-lg); padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: grid; place-items: center; min-height: 300px;
+}
+.feature-media img, .feature-media svg { max-height: 320px; width: auto; }
+
+.feature-num {
+  font-size: .85rem; font-weight: 800; letter-spacing: .14em; color: var(--pink-500);
+  margin-bottom: .3rem;
+}
+.feature-body p { color: var(--ink-soft); }
+.feature-body strong { color: var(--ink); }
+
+.check-list { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .6rem; }
+.check-list li { position: relative; padding-left: 2rem; color: var(--ink-soft); }
+.check-list li::before {
+  content: "✓"; position: absolute; left: 0; top: .05rem;
+  width: 1.35rem; height: 1.35rem; border-radius: 50%;
+  background: var(--teal-100); color: var(--teal-700);
+  font-size: .8rem; font-weight: 800; display: grid; place-items: center;
+}
+
+/* Couleurs de la brosse */
+.colors { margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px dashed var(--line); }
+.colors-title { font-weight: 700; color: var(--ink) !important; margin-bottom: .7rem; }
+.swatches { display: flex; gap: .7rem; }
+.swatch {
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  background: var(--sw); border: 3px solid #fff;
+  box-shadow: 0 0 0 2px var(--line); transition: box-shadow .18s, transform .18s;
+}
+.swatch:hover { transform: scale(1.06); }
+.swatch.is-active { box-shadow: 0 0 0 3px var(--sw); }
+.colors-current { font-size: .92rem; margin: .8rem 0 0; }
+
+/* ---------- Rappel ---------- */
+.recap { background: linear-gradient(135deg, var(--pink-500), var(--pink-600)); color: #fff; padding: clamp(2.2rem, 5vw, 3.2rem) 0; }
+.recap-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.6rem; flex-wrap: wrap; }
+.recap h2 { margin-bottom: .3rem; }
+.recap p { margin: 0; opacity: .92; }
+
+/* ---------- FAQ ---------- */
+.faq { display: grid; gap: .9rem; }
+.faq-item {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer; list-style: none; padding: 1.15rem 3.2rem 1.15rem 1.4rem;
+  font-weight: 700; position: relative; font-size: 1.03rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 50%; background: var(--pink-50); color: var(--pink-600);
+  font-size: 1.15rem; font-weight: 800; display: grid; place-items: center; transition: transform .2s;
+}
+.faq-item[open] summary::after { content: "−"; transform: translateY(-50%) rotate(180deg); }
+.faq-item[open] summary { color: var(--pink-600); }
+.faq-body { padding: 0 1.4rem 1.3rem; color: var(--ink-soft); }
+.faq-body p:last-child { margin-bottom: 0; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: #1b2233; color: #cfd6e4; padding: 3rem 0 2.2rem; text-align: center; }
+.brand-footer { color: #fff; justify-content: center; font-size: 1.3rem; margin-bottom: .3rem; }
+.footer-tag { color: #9aa5bb; margin-bottom: 1.4rem; }
+.footer-trust { list-style: none; padding: 0; margin: 0 0 1.6rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; font-size: .93rem; }
+.footer-legal { font-size: .85rem; color: #7d879c; margin: 0; }
+
+/* ---------- Barre mobile ---------- */
+.sticky-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
+  display: none; align-items: center; justify-content: space-between; gap: 1rem;
+  background: rgba(255,255,255,.97); backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line); padding: .7rem 1rem;
+  box-shadow: 0 -8px 24px rgba(31,41,55,.10);
+}
+.sticky-price { display: flex; align-items: baseline; gap: .5rem; font-size: .95rem; }
+.sticky-price strong { font-size: 1.3rem; }
+
+/* ---------- Panier ---------- */
+body.is-locked { overflow: hidden; }
+
+.drawer-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.45); z-index: 90; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 100;
+  width: min(400px, 92vw); background: #fff; display: flex; flex-direction: column;
+  box-shadow: -20px 0 60px rgba(15,23,42,.22);
+}
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--line); }
+.drawer-head h2 { margin: 0; font-size: 1.25rem; }
+.drawer-close { background: var(--bg-soft); border: 1px solid var(--line); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+.drawer-body { flex: 1; overflow-y: auto; padding: 1.2rem 1.4rem; }
+.drawer-foot { padding: 1.2rem 1.4rem; border-top: 1px solid var(--line); background: var(--bg-soft); }
+.drawer-total { display: flex; justify-content: space-between; align-items: baseline; font-size: 1.1rem; font-weight: 800; }
+.drawer-total strong { font-size: 1.45rem; }
+.drawer-ship { font-size: .88rem; color: var(--teal-700); font-weight: 700; margin-bottom: .4rem; }
+
+.cart-line { display: grid; grid-template-columns: 62px 1fr auto; gap: .9rem; align-items: center; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+.cart-line:first-child { padding-top: 0; }
+.cart-thumb { background: var(--bg-soft); border-radius: 12px; padding: .35rem; display: grid; place-items: center; height: 62px; }
+.cart-thumb img { max-height: 52px; width: auto; }
+.cart-name { font-weight: 700; font-size: .96rem; }
+.cart-meta { font-size: .82rem; color: var(--muted); }
+.cart-qty { display: inline-flex; align-items: center; gap: .35rem; margin-top: .35rem; }
+.qty-btn { width: 26px; height: 26px; border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; font-weight: 800; line-height: 1; }
+.cart-price { font-weight: 800; white-space: nowrap; }
+.cart-empty { text-align: center; color: var(--muted); padding: 2.5rem 0; }
+.cart-empty span { font-size: 2.4rem; display: block; margin-bottom: .5rem; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(12px);
+  background: #1b2233; color: #fff; padding: .85rem 1.3rem; border-radius: 999px;
+  font-weight: 700; font-size: .93rem; z-index: 120; box-shadow: var(--shadow);
+  opacity: 0; transition: opacity .2s, transform .2s; pointer-events: none;
+}
+.toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-figure { order: -1; }
+  .compare { grid-template-columns: 1fr; }
+  .compare-alt { order: 2; }
+  .feature, .feature-reverse { grid-template-columns: 1fr; }
+  .feature-reverse .feature-media { order: 0; }
+  .unit-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .site-nav { display: none; }
+  .cart-btn { margin-left: auto; }
+  .unit-grid { grid-template-columns: 1fr; }
+  .trust { grid-template-columns: 1fr; gap: 1.2rem; }
+  .sticky-bar { display: flex; }
+  body { padding-bottom: 76px; }
+  .toast { bottom: 88px; }
+  .recap-inner { flex-direction: column; text-align: center; }
+  .recap-inner .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- ============ 1. HAUT DE PAGE ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#contenu">
+        <span class="brand-mark" aria-hidden="true">🐾</span>
+        <span class="brand-name">My Fluffy Paws</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="#offre">L'offre</a>
+        <a href="#unite">À l'unité</a>
+        <a href="#accessoires">Les accessoires</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <button class="cart-btn" type="button" data-cart-open aria-haspopup="dialog">
+        <span aria-hidden="true">🛒</span>
+        <span class="sr-only">Ouvrir le panier</span>
+        <span class="cart-count" data-cart-count hidden>0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true">🐾</span> My Fluffy Paws</p>
+          <h1>Le Kit de Toilettage&nbsp;Ultim'</h1>
+          <p class="lead">Le confort de votre compagnon, en toute simplicité.</p>
+          <p class="hero-text">
+            Trois accessoires pensés ensemble&nbsp;: la <strong>brosse auto-nettoyante</strong>,
+            le <strong>gant de massage</strong> et le <strong>coupe-griffes sécurisé</strong>.
+            De quoi transformer le toilettage en moment de complicité, à la maison.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="#offre">Je profite du Kit Complet à 29,90&nbsp;€</a>
+            <a class="btn btn-ghost" href="#accessoires">Découvrir les 3 accessoires</a>
+          </div>
+
+          <ul class="hero-badges">
+            <li><span aria-hidden="true">🚚</span> Livraison offerte</li>
+            <li><span aria-hidden="true">🔒</span> Paiement 100&nbsp;% sécurisé</li>
+            <li><span aria-hidden="true">🐶🐱</span> Chiens &amp; chats</li>
+          </ul>
+        </div>
+
+        <figure class="hero-figure">
+          <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20900%20640%22%20role%3D%22img%22%20aria-label%3D%22Le%20kit%20complet%20%3A%20brosse%20auto-nettoyante%2C%20gant%20de%20massage%20et%20coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22h-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3Cpattern%20id%3D%22h-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22h-brush%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-glove%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22h-bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fff1f5%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23eefcf8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22h-clip%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3C!--%20soft%20background%20--%3E%20%3Cpath%20d%3D%22M60%20120%20q0-90%20110-96%20q180-10%20340%204%20q170%205%20300%2040%20q40%2012%2034%20120%20q-8%20150-40%20260%20q-14%2048-120%2052%20q-260%2012-500%200%20q-110-6-118-100%20q-14-160%20-6-280%20z%22%20fill%3D%22url(%23h-bg)%22%2F%3E%20%3Cg%20fill%3D%22%23f4739f%22%20opacity%3D%22.14%22%3E%20%3Cg%20transform%3D%22translate(742%20128)%20scale(1.1)%22%3E%20%3Cellipse%20cx%3D%220%22%20cy%3D%2214%22%20rx%3D%2215%22%20ry%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-14%22%20cy%3D%22-6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22-4%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%227%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%22-5%22%20r%3D%225.5%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22%232dd4bf%22%20opacity%3D%22.16%22%3E%20%3Cg%20transform%3D%22translate(126%20500)%20scale(.9)%22%3E%20%3Cellipse%20cx%3D%220%22%20cy%3D%2214%22%20rx%3D%2215%22%20ry%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-14%22%20cy%3D%22-6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22-4%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%227%22%20cy%3D%22-13%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%22-5%22%20r%3D%225.5%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3C!--%20BROSSE%20--%3E%20%3Cg%20transform%3D%22translate(66%20132)%20scale(0.98)%22%3E%20%3Cellipse%20cx%3D%22110%22%20cy%3D%22298%22%20rx%3D%2270%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23h-brush)%22%2F%3E%20%3Crect%20x%3D%2296%22%20y%3D%22200%22%20width%3D%2228%22%20height%3D%2266%22%20rx%3D%2214%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.38%22%2F%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23h-brush)%22%2F%3E%20%3Crect%20x%3D%2294%22%20y%3D%22158%22%20width%3D%2232%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.85%22%2F%3E%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22166%22%20r%3D%224%22%20fill%3D%22%23f4739f%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23h-brush)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23h-bristles)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23e2e8f0%22%20stroke-width%3D%222%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20GANT%20--%3E%20%3Cg%20transform%3D%22translate(316%20128)%20scale(1.02)%22%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23h-glove)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23h-glove)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23h-clip)%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23h-nubs)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20COUPE-GRIFFES%20--%3E%20%3Cg%20transform%3D%22translate(576%20136)%20scale(0.96)%22%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23h-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23h-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3Cg%20stroke%3D%22url(%23h-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" width="900" height="640"
+               alt="Le kit complet My Fluffy Paws : la brosse auto-nettoyante rose, le gant de massage et le coupe-griffes sécurisé.">
+          <figcaption class="hero-tag">3 accessoires · 1 seul kit</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 2. L'OFFRE PRINCIPALE ============ -->
+    <section id="offre" class="offer section">
+      <div class="container">
+        <p class="section-eyebrow">L'offre du moment</p>
+        <h2 class="section-title">Tout le kit, à petit prix</h2>
+        <p class="section-sub">Le même contenu que les 3 articles achetés séparément… sans payer le prix fort.</p>
+
+        <div class="offer-card">
+          <div class="compare">
+            <div class="compare-col compare-alt">
+              <p class="compare-label">Les 3 achetés séparément</p>
+              <ul class="compare-list">
+                <li><span>Brosse auto-nettoyante</span><span>19,90&nbsp;€</span></li>
+                <li><span>Gant de massage</span><span>14,90&nbsp;€</span></li>
+                <li><span>Coupe-griffes sécurisé</span><span>14,90&nbsp;€</span></li>
+              </ul>
+              <p class="compare-total"><span>Total</span> <span class="price-old">49,70&nbsp;€</span></p>
+            </div>
+
+            <div class="compare-col compare-main">
+              <p class="ribbon">Meilleur choix</p>
+              <p class="compare-label">Le Kit Complet</p>
+              <p class="price-now">29,90&nbsp;<span>€</span></p>
+              <p class="save">Vous économisez 19,80&nbsp;€ <span>+ Livraison Offerte</span></p>
+              <button class="btn btn-primary btn-lg btn-block" type="button" data-add="kit">
+                Je profite du Kit Complet à 29,90&nbsp;€
+              </button>
+              <p class="micro">Brosse + Gant + Coupe-griffes · Coloris de la brosse au choix</p>
+            </div>
+          </div>
+
+          <ul class="trust">
+            <li><span class="trust-ico" aria-hidden="true">🚚</span> <strong>Livraison offerte</strong><small>Sur le kit complet</small></li>
+            <li><span class="trust-ico" aria-hidden="true">🔒</span> <strong>Paiement 100&nbsp;% sécurisé</strong><small>CB · Visa · Mastercard</small></li>
+            <li><span class="trust-ico" aria-hidden="true">↩️</span> <strong>Retour sous 14 jours</strong><small>Satisfait ou remboursé</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. ACHAT À L'UNITÉ ============ -->
+    <section id="unite" class="section section-soft">
+      <div class="container">
+        <p class="section-eyebrow">Sans engagement</p>
+        <h2 class="section-title">Vous préférez commander un seul article&nbsp;?</h2>
+        <p class="section-sub">Pas de souci&nbsp;: chaque accessoire est aussi disponible à l'unité.</p>
+
+        <div class="unit-grid">
+          <article class="unit-card">
+            <div class="unit-media"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20220%20320%22%20role%3D%22img%22%20aria-label%3D%22Brosse%20auto-nettoyante%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22b-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22b-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22110%22%20cy%3D%22298%22%20rx%3D%2270%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20handle%20--%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2296%22%20y%3D%22200%22%20width%3D%2228%22%20height%3D%2266%22%20rx%3D%2214%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.38%22%2F%3E%20%3C!--%20neck%20--%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3C!--%20one-click%20cleaning%20button%20--%3E%20%3Crect%20x%3D%2294%22%20y%3D%22158%22%20width%3D%2232%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.85%22%2F%3E%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22166%22%20r%3D%224%22%20fill%3D%22%23f4739f%22%2F%3E%20%3C!--%20head%20--%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23b-bristles)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23e2e8f0%22%20stroke-width%3D%222%22%2F%3E%20%3C%2Fsvg%3E" width="220" height="320" alt="Brosse auto-nettoyante"></div>
+            <h3>Brosse auto-nettoyante</h3>
+            <p class="unit-desc">Nettoyage en 1 clic · <span data-brush-label>Coloris&nbsp;: Rose</span></p>
+            <p class="unit-price">19,90&nbsp;€</p>
+            <button class="btn btn-outline btn-block" type="button" data-add="brosse">Ajouter au panier</button>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-media"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20320%22%20role%3D%22img%22%20aria-label%3D%22Gant%20de%20massage%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22g-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22g-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22g-clip%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%20%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20thumb%20--%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%20%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20palm%20--%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23g-clip)%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23g-nubs)%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3C!--%20cuff%20--%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3C!--%20adjustable%20strap%20--%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fsvg%3E" width="260" height="320" alt="Gant de massage"></div>
+            <h3>Gant de massage</h3>
+            <p class="unit-desc">Retient les poils pendant les caresses</p>
+            <p class="unit-price">14,90&nbsp;€</p>
+            <button class="btn btn-outline btn-block" type="button" data-add="gant">Ajouter au panier</button>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-media"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20320%22%20role%3D%22img%22%20aria-label%3D%22Coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22c-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22c-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20blades%20--%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3C!--%20safety%20stop%20--%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3C!--%20handles%20--%3E%20%3Cg%20stroke%3D%22url(%23c-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%20%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%20%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20pivot%20--%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fsvg%3E" width="280" height="320" alt="Coupe-griffes sécurisé"></div>
+            <h3>Coupe-griffes sécurisé</h3>
+            <p class="unit-desc">Butée de sécurité anti-blessure</p>
+            <p class="unit-price">14,90&nbsp;€</p>
+            <button class="btn btn-outline btn-block" type="button" data-add="coupe-griffes">Ajouter au panier</button>
+          </article>
+        </div>
+
+        <p class="unit-note">
+          💡 À l'unité, les 3 reviennent à <strong>49,70&nbsp;€</strong>.
+          <a href="#offre">Repasser au kit complet à 29,90&nbsp;€</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 4. LES 3 ACCESSOIRES ============ -->
+    <section id="accessoires" class="section">
+      <div class="container">
+        <p class="section-eyebrow">Dans le kit</p>
+        <h2 class="section-title">Trois accessoires, trois usages</h2>
+        <p class="section-sub">Chacun a son rôle&nbsp;: démêler, masser, entretenir les griffes.</p>
+
+        <!-- 1. Brosse -->
+        <article class="feature" data-brush-scope style="--brush-color:#f4739f">
+          <div class="feature-media">
+            <svg viewBox="0 0 220 320" class="brush-svg" role="img" aria-label="Brosse auto-nettoyante, coloris sélectionné">
+              <defs>
+                <pattern id="f-bristles" width="13" height="13" patternUnits="userSpaceOnUse">
+                  <path d="M6.5 11 V5 q0-2.4 2.4-2.4" stroke="#8b95a8" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+                </pattern>
+              </defs>
+              <ellipse cx="110" cy="298" rx="70" ry="12" fill="#0f172a" opacity=".08"/>
+              <rect x="86" y="176" width="48" height="118" rx="24" fill="var(--brush-color)"/>
+              <rect x="96" y="200" width="28" height="66" rx="14" fill="#fff" opacity=".38"/>
+              <rect x="92" y="150" width="36" height="40" rx="12" fill="var(--brush-color)"/>
+              <rect x="94" y="158" width="32" height="16" rx="8" fill="#fff" opacity=".85"/>
+              <circle cx="110" cy="166" r="4" fill="var(--brush-color)"/>
+              <rect x="24" y="26" width="172" height="140" rx="38" fill="var(--brush-color)"/>
+              <rect x="38" y="40" width="144" height="98" rx="24" fill="#f8fafc"/>
+              <rect x="38" y="40" width="144" height="98" rx="24" fill="url(#f-bristles)"/>
+              <rect x="38" y="40" width="144" height="98" rx="24" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+            </svg>
+          </div>
+
+          <div class="feature-body">
+            <p class="feature-num">01</p>
+            <h3>La Brosse auto-nettoyante</h3>
+            <p>
+              Un appui sur le bouton et les picots se rétractent&nbsp;: les poils se détachent d'un bloc,
+              vous les jetez, c'est terminé. <strong>Plus besoin de retirer les poils un par un.</strong>
+            </p>
+            <ul class="check-list">
+              <li>Nettoyage en <strong>1 clic</strong>, sans effort</li>
+              <li>Picots à bouts arrondis, doux pour la peau</li>
+              <li>Démêle et retire le sous-poil mort</li>
+              <li>Poignée antidérapante, prise en main confortable</li>
+            </ul>
+
+            <div class="colors">
+              <p class="colors-title" id="titre-couleurs">Choisissez votre coloris&nbsp;:</p>
+              <div class="swatches" role="radiogroup" aria-labelledby="titre-couleurs">
+                <button type="button" class="swatch is-active" role="radio" aria-checked="true"
+                        data-color="Rose" data-hex="#f4739f" style="--sw:#f4739f">
+                  <span class="sr-only">Rose</span>
+                </button>
+                <button type="button" class="swatch" role="radio" aria-checked="false"
+                        data-color="Bleu" data-hex="#4a90d9" style="--sw:#4a90d9">
+                  <span class="sr-only">Bleu</span>
+                </button>
+                <button type="button" class="swatch" role="radio" aria-checked="false"
+                        data-color="Gris" data-hex="#8a94a6" style="--sw:#8a94a6">
+                  <span class="sr-only">Gris</span>
+                </button>
+              </div>
+              <p class="colors-current">Sélection&nbsp;: <strong data-brush-current>Rose</strong></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Gant -->
+        <article class="feature feature-reverse">
+          <div class="feature-media">
+            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20320%22%20role%3D%22img%22%20aria-label%3D%22Gant%20de%20massage%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22g-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22g-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22g-clip%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%20%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20thumb%20--%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%20%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20palm%20--%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23g-clip)%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23g-nubs)%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3C!--%20cuff%20--%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3C!--%20adjustable%20strap%20--%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fsvg%3E" width="260" height="320" alt="Gant de massage avec picots souples">
+          </div>
+          <div class="feature-body">
+            <p class="feature-num">02</p>
+            <h3>Le Gant de massage</h3>
+            <p>
+              Il ne ressemble pas à un outil de toilettage&nbsp;— et c'est bien l'idée.
+              Vous caressez votre animal, <strong>les poils morts restent dans le gant</strong>.
+              Un vrai moment de complicité, même pour les plus craintifs.
+            </p>
+            <ul class="check-list">
+              <li>Le brossage devient une <strong>séance de câlins</strong></li>
+              <li>Picots souples en silicone&nbsp;: zéro griffure</li>
+              <li>Les poils s'enlèvent d'un simple geste de la main</li>
+              <li>Sangle réglable · S'utilise aussi sur poil mouillé, au bain</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 3. Coupe-griffes -->
+        <article class="feature">
+          <div class="feature-media">
+            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20320%22%20role%3D%22img%22%20aria-label%3D%22Coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22c-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22c-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20blades%20--%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3C!--%20safety%20stop%20--%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3C!--%20handles%20--%3E%20%3Cg%20stroke%3D%22url(%23c-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%20%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%20%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20pivot%20--%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fsvg%3E" width="280" height="320" alt="Coupe-griffes avec butée de sécurité orange">
+          </div>
+          <div class="feature-body">
+            <p class="feature-num">03</p>
+            <h3>Le Coupe-griffes sécurisé</h3>
+            <p>
+              La <strong>butée de sécurité anti-blessure</strong> limite la longueur coupée&nbsp;:
+              impossible d'aller trop loin et de toucher la partie vivante de la griffe.
+              La coupe des griffes sans la boule au ventre.
+            </p>
+            <ul class="check-list">
+              <li><strong>Butée anti-blessure</strong> réglable, pour couper juste ce qu'il faut</li>
+              <li>Lames en acier inoxydable, coupe nette d'un seul geste</li>
+              <li>Convient aux <strong>chiens comme aux chats</strong>, petits et grands</li>
+              <li>Poignées antidérapantes et ressort de sécurité</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Rappel offre -->
+    <section class="recap">
+      <div class="container recap-inner">
+        <div>
+          <h2>Le kit complet, c'est 29,90&nbsp;€</h2>
+          <p>Au lieu de 49,70&nbsp;€ à l'unité — soit 19,80&nbsp;€ d'économie, livraison offerte.</p>
+        </div>
+        <button class="btn btn-light btn-lg" type="button" data-add="kit">Je profite du Kit Complet à 29,90&nbsp;€</button>
+      </div>
+    </section>
+
+    <!-- ============ 5. FAQ ============ -->
+    <section id="faq" class="section section-soft">
+      <div class="container container-narrow">
+        <p class="section-eyebrow">On répond à tout</p>
+        <h2 class="section-title">Foire aux questions</h2>
+        <p class="section-sub">Une dernière hésitation&nbsp;? La réponse est probablement juste en dessous.</p>
+
+        <div class="faq">
+          <details class="faq-item">
+            <summary>Comment nettoyer et entretenir les outils&nbsp;?</summary>
+            <div class="faq-body">
+              <p>
+                <strong>La brosse</strong>&nbsp;: appuyez sur le bouton, les picots se rétractent et les poils
+                partent en un bloc. Un chiffon humide sur la tête de brosse une fois par mois suffit.
+              </p>
+              <p>
+                <strong>Le gant</strong>&nbsp;: passez la main dessus pour décoller les poils, puis rincez-le
+                à l'eau tiède avec un peu de savon doux. Laissez sécher à l'air libre.
+              </p>
+              <p>
+                <strong>Le coupe-griffes</strong>&nbsp;: essuyez les lames après usage et gardez-les au sec
+                pour éviter toute trace d'oxydation. Rien ne va au lave-vaisselle.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Le coupe-griffes est-il sans danger&nbsp;?</summary>
+            <div class="faq-body">
+              <p>
+                Oui. Il est équipé d'une <strong>butée de sécurité</strong> qui limite la longueur de griffe
+                engagée entre les lames&nbsp;: vous ne pouvez pas couper trop court et atteindre la partie
+                vivante (la « veine »). Le ressort de sécurité verrouille aussi l'outil quand il n'est pas utilisé.
+              </p>
+              <p>
+                Notre conseil&nbsp;: coupez toujours <em>par petites touches</em>, en restant avant la zone
+                rosée visible sur les griffes claires. Sur griffes noires, allez-y millimètre par millimètre.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Est-ce adapté aux chiens et aux chats&nbsp;?</summary>
+            <div class="faq-body">
+              <p>
+                Les trois accessoires sont conçus pour <strong>les chiens et les chats</strong>, à poils courts
+                comme à poils longs.
+              </p>
+              <p>
+                Le coupe-griffes s'utilise sur les petits gabarits (chatons, petits chiens) comme sur les
+                griffes plus épaisses des grands chiens. Pour les chats les plus sensibles, commencez par le
+                gant de massage&nbsp;: il fait accepter le toilettage en douceur.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Comment choisir la couleur de ma brosse&nbsp;?</summary>
+            <div class="faq-body">
+              <p>
+                La brosse existe en <strong>Rose</strong>, <strong>Bleu</strong> et <strong>Gris</strong>&nbsp;:
+                seul le coloris change, le modèle et les picots sont strictement identiques.
+              </p>
+              <p>
+                Sélectionnez votre coloris directement dans la
+                <a href="#accessoires">section « La Brosse auto-nettoyante »</a>&nbsp;: il est enregistré
+                dans votre panier, que vous preniez le kit complet ou la brosse seule.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="brand brand-footer"><span aria-hidden="true">🐾</span> My Fluffy Paws</p>
+      <p class="footer-tag">Le confort de votre compagnon, en toute simplicité.</p>
+      <ul class="footer-trust">
+        <li>🚚 Livraison offerte</li>
+        <li>🔒 Paiement 100&nbsp;% sécurisé</li>
+        <li>↩️ Retour sous 14 jours</li>
+      </ul>
+      <p class="footer-legal">© <span data-year>2026</span> My Fluffy Paws — Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- Barre d'achat mobile -->
+  <div class="sticky-bar" data-sticky hidden>
+    <div class="sticky-price"><span class="price-old">49,70&nbsp;€</span> <strong>29,90&nbsp;€</strong></div>
+    <button class="btn btn-primary" type="button" data-add="kit">Je profite du Kit</button>
+  </div>
+
+  <!-- Panier -->
+  <div class="drawer-overlay" data-overlay hidden></div>
+  <aside class="drawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="titre-panier" hidden>
+    <header class="drawer-head">
+      <h2 id="titre-panier">Votre panier</h2>
+      <button class="drawer-close" type="button" data-cart-close aria-label="Fermer le panier">✕</button>
+    </header>
+    <div class="drawer-body" data-cart-items></div>
+    <footer class="drawer-foot">
+      <p class="drawer-ship" data-ship></p>
+      <p class="drawer-total"><span>Total</span> <strong data-cart-total>0,00&nbsp;€</strong></p>
+      <button class="btn btn-primary btn-block btn-lg" type="button" data-checkout>Passer commande</button>
+      <p class="micro center">🔒 Paiement 100&nbsp;% sécurisé</p>
+    </footer>
+  </aside>
+
+  <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
+<script>
+/* ==========================================================================
+   My Fluffy Paws — panier, coloris de la brosse, interactions
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var STORAGE_CART = 'mfp-cart';
+  var STORAGE_COLOR = 'mfp-brush-color';
+
+  var PRODUITS = {
+    'kit': {
+      nom: "Kit de Toilettage Ultim'",
+      prix: 29.90,
+      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20380%20160%22%20role%3D%22img%22%20aria-label%3D%22Kit%20complet%20%3A%20brosse%2C%20gant%20et%20coupe-griffes%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22k-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3Cpattern%20id%3D%22k-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22k-brush%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22k-glove%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22k-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22k-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22k-clip%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cg%20transform%3D%22translate(0%203)%20scale(0.5)%22%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23k-brush)%22%2F%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23k-brush)%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23k-brush)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23k-bristles)%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(108%2021)%20scale(0.5)%22%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23k-glove)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23k-glove)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23k-clip)%22%3E%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23k-nubs)%22%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(228%2028)%20scale(0.5)%22%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23k-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23k-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Cg%20stroke%3D%22url(%23k-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E',
+      note: 'Brosse + Gant + Coupe-griffes',
+      couleur: true,
+      livraisonOfferte: true
+    },
+    'brosse': {
+      nom: 'Brosse auto-nettoyante',
+      prix: 19.90,
+      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20220%20320%22%20role%3D%22img%22%20aria-label%3D%22Brosse%20auto-nettoyante%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22b-bristles%22%20width%3D%2213%22%20height%3D%2213%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Cpath%20d%3D%22M6.5%2011%20V5%20q0-2.4%202.4-2.4%22%20stroke%3D%22%238b95a8%22%20stroke-width%3D%221.7%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22b-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff9ec0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f4739f%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22110%22%20cy%3D%22298%22%20rx%3D%2270%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20handle%20--%3E%20%3Crect%20x%3D%2286%22%20y%3D%22176%22%20width%3D%2248%22%20height%3D%22118%22%20rx%3D%2224%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2296%22%20y%3D%22200%22%20width%3D%2228%22%20height%3D%2266%22%20rx%3D%2214%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.38%22%2F%3E%20%3C!--%20neck%20--%3E%20%3Crect%20x%3D%2292%22%20y%3D%22150%22%20width%3D%2236%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3C!--%20one-click%20cleaning%20button%20--%3E%20%3Crect%20x%3D%2294%22%20y%3D%22158%22%20width%3D%2232%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.85%22%2F%3E%20%3Ccircle%20cx%3D%22110%22%20cy%3D%22166%22%20r%3D%224%22%20fill%3D%22%23f4739f%22%2F%3E%20%3C!--%20head%20--%3E%20%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%22172%22%20height%3D%22140%22%20rx%3D%2238%22%20fill%3D%22url(%23b-body)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22%23f8fafc%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22url(%23b-bristles)%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2240%22%20width%3D%22144%22%20height%3D%2298%22%20rx%3D%2224%22%20fill%3D%22none%22%20stroke%3D%22%23e2e8f0%22%20stroke-width%3D%222%22%2F%3E%20%3C%2Fsvg%3E',
+      note: 'Nettoyage en 1 clic',
+      couleur: true
+    },
+    'gant': {
+      nom: 'Gant de massage',
+      prix: 14.90,
+      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20320%22%20role%3D%22img%22%20aria-label%3D%22Gant%20de%20massage%22%3E%20%3Cdefs%3E%20%3Cpattern%20id%3D%22g-nubs%22%20width%3D%2218%22%20height%3D%2218%22%20patternUnits%3D%22userSpaceOnUse%22%3E%20%3Ccircle%20cx%3D%225%22%20cy%3D%225%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%222.6%22%20fill%3D%22%230f766e%22%20opacity%3D%22.28%22%2F%3E%20%3C%2Fpattern%3E%20%3ClinearGradient%20id%3D%22g-body%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235eead4%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232dd4bf%22%2F%3E%20%3C%2FlinearGradient%3E%20%3CclipPath%20id%3D%22g-clip%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%2F%3E%20%3C%2FclipPath%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22132%22%20cy%3D%22300%22%20rx%3D%2276%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20thumb%20--%3E%20%3Cg%20transform%3D%22rotate(-14%2060%20150)%22%3E%20%3Crect%20x%3D%2230%22%20y%3D%22104%22%20width%3D%2258%22%20height%3D%22104%22%20rx%3D%2229%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20palm%20--%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22url(%23g-body)%22%2F%3E%20%3Cg%20clip-path%3D%22url(%23g-clip)%22%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20fill%3D%22url(%23g-nubs)%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D%2272%22%20y%3D%2234%22%20width%3D%22132%22%20height%3D%22176%22%20rx%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2314b8a6%22%20stroke-width%3D%222.5%22%20opacity%3D%22.5%22%2F%3E%20%3C!--%20cuff%20--%3E%20%3Crect%20x%3D%2266%22%20y%3D%22206%22%20width%3D%22144%22%20height%3D%2252%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%22220%22%20width%3D%22144%22%20height%3D%228%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.25%22%2F%3E%20%3C!--%20adjustable%20strap%20--%3E%20%3Crect%20x%3D%22196%22%20y%3D%22214%22%20width%3D%2234%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%230f766e%22%2F%3E%20%3Ccircle%20cx%3D%22213%22%20cy%3D%22223%22%20r%3D%224.5%22%20fill%3D%22%235eead4%22%2F%3E%20%3C%2Fsvg%3E',
+      note: 'Retient les poils'
+    },
+    'coupe-griffes': {
+      nom: 'Coupe-griffes sécurisé',
+      prix: 14.90,
+      img: 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20320%22%20role%3D%22img%22%20aria-label%3D%22Coupe-griffes%20s%C3%A9curis%C3%A9%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22c-steel%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e2e8f0%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2394a3b8%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22c-grip%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23475569%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e293b%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Cellipse%20cx%3D%22140%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2212%22%20fill%3D%22%230f172a%22%20opacity%3D%22.08%22%2F%3E%20%3C!--%20blades%20--%3E%20%3Cpath%20d%3D%22M140%20176%20C104%20152%20100%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20176%20C176%20152%20180%2096%20140%2074%22%20fill%3D%22none%22%20stroke%3D%22url(%23c-steel)%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M140%20168%20C112%20148%20110%20102%20140%2084%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.7%22%2F%3E%20%3C!--%20safety%20stop%20--%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23fb923c%22%2F%3E%20%3Crect%20x%3D%22104%22%20y%3D%22112%22%20width%3D%2272%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23ffffff%22%20opacity%3D%22.35%22%2F%3E%20%3C!--%20handles%20--%3E%20%3Cg%20stroke%3D%22url(%23c-grip)%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M140%20178%20L82%20244%22%2F%3E%20%3Cpath%20d%3D%22M140%20178%20L198%20244%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D%22%23f97316%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22%3E%20%3Cpath%20d%3D%22M104%20218%20L90%20234%22%2F%3E%20%3Cpath%20d%3D%22M176%20218%20L190%20234%22%2F%3E%20%3C%2Fg%3E%20%3C!--%20pivot%20--%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%2216%22%20fill%3D%22%23334155%22%2F%3E%20%3Ccircle%20cx%3D%22140%22%20cy%3D%22176%22%20r%3D%226%22%20fill%3D%22%23cbd5e1%22%2F%3E%20%3C%2Fsvg%3E',
+      note: 'Butée anti-blessure'
+    }
+  };
+
+  var COULEURS = { 'Rose': '#f4739f', 'Bleu': '#4a90d9', 'Gris': '#8a94a6' };
+
+  /* ---------- utilitaires ---------- */
+
+  function euros(valeur) {
+    return valeur.toFixed(2).replace('.', ',') + ' €';
+  }
+
+  function lire(cle, defaut) {
+    try {
+      var brut = localStorage.getItem(cle);
+      return brut ? JSON.parse(brut) : defaut;
+    } catch (e) {
+      return defaut;
+    }
+  }
+
+  function ecrire(cle, valeur) {
+    try {
+      localStorage.setItem(cle, JSON.stringify(valeur));
+    } catch (e) { /* stockage indisponible : le panier reste en mémoire */ }
+  }
+
+  var panier = lire(STORAGE_CART, []);
+  var couleurBrosse = lire(STORAGE_COLOR, 'Rose');
+  if (!COULEURS[couleurBrosse]) { couleurBrosse = 'Rose'; }
+
+  /* ---------- coloris de la brosse ---------- */
+
+  var scopeBrosse = document.querySelector('[data-brush-scope]');
+  var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
+
+  function appliquerCouleur(nom) {
+    couleurBrosse = COULEURS[nom] ? nom : 'Rose';
+    ecrire(STORAGE_COLOR, couleurBrosse);
+
+    if (scopeBrosse) {
+      scopeBrosse.style.setProperty('--brush-color', COULEURS[couleurBrosse]);
+    }
+    swatches.forEach(function (btn) {
+      var actif = btn.dataset.color === couleurBrosse;
+      btn.classList.toggle('is-active', actif);
+      btn.setAttribute('aria-checked', actif ? 'true' : 'false');
+    });
+    document.querySelectorAll('[data-brush-current]').forEach(function (el) {
+      el.textContent = couleurBrosse;
+    });
+    document.querySelectorAll('[data-brush-label]').forEach(function (el) {
+      el.textContent = 'Coloris : ' + couleurBrosse;
+    });
+  }
+
+  swatches.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      appliquerCouleur(btn.dataset.color);
+      afficherToast('Coloris ' + couleurBrosse + ' sélectionné 🎨');
+    });
+  });
+
+  appliquerCouleur(couleurBrosse);
+
+  /* ---------- panier ---------- */
+
+  var elItems = document.querySelector('[data-cart-items]');
+  var elTotal = document.querySelector('[data-cart-total]');
+  var elCount = document.querySelector('[data-cart-count]');
+  var elShip = document.querySelector('[data-ship]');
+  var drawer = document.querySelector('[data-drawer]');
+  var overlay = document.querySelector('[data-overlay]');
+
+  function cleLigne(id, couleur) {
+    return couleur ? id + '::' + couleur : id;
+  }
+
+  function ajouter(id) {
+    var produit = PRODUITS[id];
+    if (!produit) { return; }
+
+    var couleur = produit.couleur ? couleurBrosse : null;
+    var cle = cleLigne(id, couleur);
+    var ligne = panier.filter(function (l) { return l.cle === cle; })[0];
+
+    if (ligne) {
+      ligne.qte += 1;
+    } else {
+      panier.push({ cle: cle, id: id, couleur: couleur, qte: 1 });
+    }
+
+    sauver();
+    rendre();
+    afficherToast(produit.nom + ' ajouté au panier 🐾');
+    ouvrirPanier();
+  }
+
+  function modifierQuantite(cle, delta) {
+    var ligne = panier.filter(function (l) { return l.cle === cle; })[0];
+    if (!ligne) { return; }
+    ligne.qte += delta;
+    if (ligne.qte <= 0) {
+      panier = panier.filter(function (l) { return l.cle !== cle; });
+    }
+    sauver();
+    rendre();
+  }
+
+  function supprimer(cle) {
+    panier = panier.filter(function (l) { return l.cle !== cle; });
+    sauver();
+    rendre();
+  }
+
+  function sauver() { ecrire(STORAGE_CART, panier); }
+
+  function total() {
+    return panier.reduce(function (somme, ligne) {
+      var produit = PRODUITS[ligne.id];
+      return produit ? somme + produit.prix * ligne.qte : somme;
+    }, 0);
+  }
+
+  function nombreArticles() {
+    return panier.reduce(function (somme, ligne) { return somme + ligne.qte; }, 0);
+  }
+
+  function rendre() {
+    // nettoyage des lignes devenues invalides (produit retiré du catalogue)
+    panier = panier.filter(function (ligne) { return !!PRODUITS[ligne.id]; });
+
+    var n = nombreArticles();
+    if (elCount) {
+      elCount.textContent = String(n);
+      elCount.hidden = n === 0;
+    }
+
+    if (elItems) {
+      elItems.innerHTML = '';
+
+      if (!panier.length) {
+        var vide = document.createElement('div');
+        vide.className = 'cart-empty';
+        vide.innerHTML = '<span aria-hidden="true">🐾</span>Votre panier est vide pour le moment.';
+        elItems.appendChild(vide);
+      } else {
+        panier.forEach(function (ligne) {
+          var produit = PRODUITS[ligne.id];
+          var el = document.createElement('div');
+          el.className = 'cart-line';
+
+          var meta = produit.note + (ligne.couleur ? ' · ' + ligne.couleur : '');
+
+          el.innerHTML =
+            '<div class="cart-thumb"><img src="' + produit.img + '" alt=""></div>' +
+            '<div>' +
+              '<div class="cart-name"></div>' +
+              '<div class="cart-meta"></div>' +
+              '<div class="cart-qty">' +
+                '<button class="qty-btn" type="button" data-qty="-1" aria-label="Retirer une unité">−</button>' +
+                '<span class="qty-value">' + ligne.qte + '</span>' +
+                '<button class="qty-btn" type="button" data-qty="1" aria-label="Ajouter une unité">+</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="cart-price">' + euros(produit.prix * ligne.qte) + '</div>';
+
+          el.querySelector('.cart-name').textContent = produit.nom;
+          el.querySelector('.cart-meta').textContent = meta;
+
+          el.querySelectorAll('[data-qty]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              modifierQuantite(ligne.cle, parseInt(btn.dataset.qty, 10));
+            });
+          });
+
+          elItems.appendChild(el);
+        });
+      }
+    }
+
+    if (elTotal) { elTotal.textContent = euros(total()); }
+
+    if (elShip) {
+      var avecKit = panier.some(function (l) { return PRODUITS[l.id] && PRODUITS[l.id].livraisonOfferte; });
+      elShip.textContent = panier.length
+        ? (avecKit ? '🚚 Livraison offerte' : '🚚 Livraison offerte dès le kit complet')
+        : '';
+    }
+  }
+
+  /* ---------- tiroir panier ---------- */
+
+  var dernierFocus = null;
+
+  function ouvrirPanier() {
+    if (!drawer) { return; }
+    dernierFocus = document.activeElement;
+    drawer.hidden = false;
+    if (overlay) { overlay.hidden = false; }
+    document.body.classList.add('is-locked');
+    var fermer = drawer.querySelector('[data-cart-close]');
+    if (fermer) { fermer.focus(); }
+  }
+
+  function fermerPanier() {
+    if (!drawer) { return; }
+    drawer.hidden = true;
+    if (overlay) { overlay.hidden = true; }
+    document.body.classList.remove('is-locked');
+    if (dernierFocus && dernierFocus.focus) { dernierFocus.focus(); }
+  }
+
+  document.querySelectorAll('[data-cart-open]').forEach(function (b) {
+    b.addEventListener('click', ouvrirPanier);
+  });
+  document.querySelectorAll('[data-cart-close]').forEach(function (b) {
+    b.addEventListener('click', fermerPanier);
+  });
+  if (overlay) { overlay.addEventListener('click', fermerPanier); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && drawer && !drawer.hidden) { fermerPanier(); }
+  });
+
+  document.querySelectorAll('[data-add]').forEach(function (btn) {
+    btn.addEventListener('click', function () { ajouter(btn.dataset.add); });
+  });
+
+  var checkout = document.querySelector('[data-checkout]');
+  if (checkout) {
+    checkout.addEventListener('click', function () {
+      if (!panier.length) {
+        afficherToast('Votre panier est encore vide 🐾');
+        return;
+      }
+      afficherToast('Commande de ' + euros(total()) + ' — paiement à connecter');
+    });
+  }
+
+  /* ---------- toast ---------- */
+
+  var elToast = document.querySelector('[data-toast]');
+  var minuteurToast;
+
+  function afficherToast(message) {
+    if (!elToast) { return; }
+    elToast.textContent = message;
+    elToast.hidden = false;
+    // force le reflow pour rejouer la transition
+    void elToast.offsetWidth;
+    elToast.classList.add('is-visible');
+    clearTimeout(minuteurToast);
+    minuteurToast = setTimeout(function () {
+      elToast.classList.remove('is-visible');
+      setTimeout(function () { elToast.hidden = true; }, 250);
+    }, 2600);
+  }
+
+  /* ---------- barre d'achat mobile ---------- */
+
+  var sticky = document.querySelector('[data-sticky]');
+  var reperage = document.querySelector('.hero-actions');
+
+  if (sticky && reperage && 'IntersectionObserver' in window) {
+    sticky.hidden = true;
+    new IntersectionObserver(function (entrees) {
+      sticky.hidden = entrees[0].isIntersecting;
+    }, { rootMargin: '0px 0px -40% 0px' }).observe(reperage);
+  } else if (sticky) {
+    sticky.hidden = false;
+  }
+
+  /* ---------- divers ---------- */
+
+  var annee = document.querySelector('[data-year]');
+  if (annee) { annee.textContent = String(new Date().getFullYear()); }
+
+  rendre();
+})();
+</script>

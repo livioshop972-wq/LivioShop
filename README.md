@@ -48,3 +48,10 @@ python3 -m http.server 8000
   l'illustration, la fiche à l'unité et la ligne correspondante du panier.
 - Responsive (grille 3 → 2 → 1 colonne), barre d'achat fixe sur mobile,
   navigation clavier, `prefers-reduced-motion` respecté.
+
+## Version en un seul fichier
+
+`node build.js` génère `dist/site.html` : la page entière (CSS, JS et
+illustrations compris) dans un fichier unique, sans dossier `assets/`.
+Pratique pour l'envoyer par mail, l'héberger n'importe où, ou simplement
+l'ouvrir d'un double-clic.
