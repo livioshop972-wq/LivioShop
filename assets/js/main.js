@@ -11,8 +11,7 @@
     'kit': {
       nom: "Kit de Toilettage Ultim'",
       prix: 29.90,
-      icone: 'ic-kit',
-      vue: '0 0 900 420',
+      img: 'assets/img/photos/kit-complet.webp',
       note: 'Brosse + Gant + Coupe-griffes',
       couleur: true,
       livraisonOfferte: true
@@ -20,33 +19,25 @@
     'brosse': {
       nom: 'Brosse auto-nettoyante',
       prix: 19.90,
-      icone: 'ic-brosse',
-      vue: '0 0 300 400',
+      img: 'assets/img/photos/brosse-vignette.webp',
       note: 'Nettoyage en 1 clic',
       couleur: true
     },
     'gant': {
       nom: 'Gant de massage',
       prix: 14.90,
-      icone: 'ic-gant',
-      vue: '0 0 300 400',
+      img: 'assets/img/photos/gant-vignette.webp',
       note: 'Retient les poils'
     },
     'coupe-griffes': {
       nom: 'Coupe-griffes sécurisé',
       prix: 14.90,
-      icone: 'ic-griffes',
-      vue: '0 0 300 400',
+      img: 'assets/img/photos/coupe-griffes-vignette.webp',
       note: 'Butée anti-blessure'
     }
   };
 
-  /* Chaque coloris fournit ses trois nuances : le dégradé du produit en dépend. */
-  var COULEURS = {
-    'Rose': { base: '#f4739f', clair: '#ffb3cd', fonce: '#d64d84' },
-    'Bleu': { base: '#4a90d9', clair: '#93c3f2', fonce: '#2f6dab' },
-    'Gris': { base: '#8a94a6', clair: '#c6cdd9', fonce: '#626c7d' }
-  };
+  var COULEURS = { 'Rose': '#f4739f', 'Bleu': '#4a90d9', 'Gris': '#8a94a6' };
 
   /* ---------- utilitaires ---------- */
 
@@ -80,13 +71,6 @@
   function appliquerCouleur(nom) {
     couleurBrosse = COULEURS[nom] ? nom : 'Rose';
     ecrire(STORAGE_COLOR, couleurBrosse);
-
-    // les variables vivent sur la racine : toutes les brosses de la page suivent
-    var teinte = COULEURS[couleurBrosse];
-    var racine = document.documentElement;
-    racine.style.setProperty('--brush-color', teinte.base);
-    racine.style.setProperty('--brush-light', teinte.clair);
-    racine.style.setProperty('--brush-dark', teinte.fonce);
 
     swatches.forEach(function (btn) {
       var actif = btn.dataset.color === couleurBrosse;
@@ -200,11 +184,7 @@
           var meta = produit.note + (ligne.couleur ? ' · ' + ligne.couleur : '');
 
           el.innerHTML =
-            '<div class="cart-thumb">' +
-              '<svg viewBox="' + produit.vue + '" aria-hidden="true" focusable="false">' +
-                '<use href="#' + produit.icone + '"></use>' +
-              '</svg>' +
-            '</div>' +
+            '<div class="cart-thumb"><img src="' + produit.img + '" alt="" loading="lazy"></div>' +
             '<div>' +
               '<div class="cart-name"></div>' +
               '<div class="cart-meta"></div>' +

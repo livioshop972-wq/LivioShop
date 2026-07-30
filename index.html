@@ -11,228 +11,6 @@
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-  <!-- ============================================================
-       Illustrations produit — définies une seule fois, réutilisées
-       partout via <use>. La brosse suit la variable --brush-color,
-       ce qui permet de changer son coloris en direct.
-       ============================================================ -->
-  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="sp-shadow" x="-30%" y="-30%" width="160%" height="160%">
-        <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#0f172a" flood-opacity=".17"/>
-      </filter>
-      <filter id="sp-blur" x="-60%" y="-60%" width="220%" height="220%">
-        <feGaussianBlur stdDeviation="8"/>
-      </filter>
-    </defs>
-
-    <!-- ---------- Brosse auto-nettoyante ---------- -->
-    <symbol id="ic-brosse" viewBox="0 0 300 400">
-      <defs>
-        <linearGradient id="br-handle" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="var(--brush-light)"/>
-          <stop offset=".42" stop-color="var(--brush-color)"/>
-          <stop offset="1" stop-color="var(--brush-dark)"/>
-        </linearGradient>
-        <linearGradient id="br-head" x1=".15" y1="0" x2=".5" y2="1">
-          <stop offset="0" stop-color="var(--brush-light)"/>
-          <stop offset=".5" stop-color="var(--brush-color)"/>
-          <stop offset="1" stop-color="var(--brush-dark)"/>
-        </linearGradient>
-        <radialGradient id="br-pad" cx=".42" cy=".35" r=".8">
-          <stop offset="0" stop-color="#ffffff"/>
-          <stop offset="1" stop-color="#dde3ec"/>
-        </radialGradient>
-        <pattern id="br-pins" width="14" height="14" patternUnits="userSpaceOnUse">
-          <path d="M7 12.6 V6.6 q0-2.3 2.3-2.9" fill="none" stroke="#8f9ab0" stroke-width="1.7" stroke-linecap="round"/>
-          <circle cx="9.6" cy="3.5" r="1.2" fill="#64748b"/>
-        </pattern>
-      </defs>
-
-      <ellipse cx="150" cy="384" rx="72" ry="12" fill="#0f172a" opacity=".16" filter="url(#sp-blur)"/>
-
-      <g filter="url(#sp-shadow)">
-        <!-- manche ergonomique -->
-        <path d="M118 206 C112 248 108 292 112 330 C115 362 130 376 150 376 C170 376 185 362 188 330 C192 292 188 248 182 206 Z" fill="url(#br-handle)"/>
-        <path d="M124 236 C120 270 118 302 121 328 C124 352 136 364 150 364 C164 364 176 352 179 328 C182 302 180 270 176 236 Z" fill="#0f172a" opacity=".13"/>
-        <g stroke="#ffffff" stroke-opacity=".2" stroke-width="3" stroke-linecap="round">
-          <path d="M129 262 H171"/><path d="M128 284 H172"/><path d="M128 306 H172"/><path d="M130 328 H170"/>
-        </g>
-        <path d="M126 230 C122 266 121 302 124 332" fill="none" stroke="#ffffff" stroke-opacity=".38" stroke-width="7" stroke-linecap="round"/>
-
-        <!-- bouton de rétractation des picots -->
-        <rect x="128" y="210" width="44" height="22" rx="11" fill="#ffffff" opacity=".93"/>
-        <path d="M142 224 l8-7 8 7" fill="none" stroke="var(--brush-dark)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-
-        <!-- col -->
-        <path d="M128 172 h44 c3 12 6 24 10 36 h-64 c3-12 7-24 10-36 Z" fill="var(--brush-dark)"/>
-        <rect x="120" y="163" width="60" height="17" rx="8.5" fill="url(#br-handle)"/>
-        <rect x="120" y="163" width="60" height="6" rx="3" fill="#ffffff" opacity=".32"/>
-
-        <!-- tête -->
-        <rect x="34" y="30" width="232" height="152" rx="46" fill="url(#br-head)"/>
-        <rect x="35" y="31" width="230" height="150" rx="45" fill="none" stroke="#ffffff" stroke-opacity=".3" stroke-width="2"/>
-        <path d="M62 44 C92 34 208 34 238 44" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="6" stroke-linecap="round"/>
-
-        <!-- coussin de picots -->
-        <rect x="52" y="46" width="196" height="116" rx="30" fill="url(#br-pad)"/>
-        <rect x="52" y="46" width="196" height="116" rx="30" fill="url(#br-pins)"/>
-        <rect x="53" y="47" width="194" height="114" rx="29" fill="none" stroke="#0f172a" stroke-opacity=".14" stroke-width="2"/>
-      </g>
-    </symbol>
-
-    <!-- ---------- Gant de massage ---------- -->
-    <symbol id="ic-gant" viewBox="0 0 300 400">
-      <defs>
-        <linearGradient id="gl-body" x1=".2" y1="0" x2=".85" y2="1">
-          <stop offset="0" stop-color="#8af3e2"/>
-          <stop offset=".5" stop-color="#2dd4bf"/>
-          <stop offset="1" stop-color="#0eb0a0"/>
-        </linearGradient>
-        <linearGradient id="gl-cuff" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#12a394"/>
-          <stop offset="1" stop-color="#0b5f58"/>
-        </linearGradient>
-        <radialGradient id="gl-nub" cx=".34" cy=".28" r=".85">
-          <stop offset="0" stop-color="#ffffff" stop-opacity=".6"/>
-          <stop offset=".55" stop-color="#0f766e" stop-opacity=".26"/>
-          <stop offset="1" stop-color="#0b5f58" stop-opacity=".45"/>
-        </radialGradient>
-        <pattern id="gl-nubs" width="22" height="22" patternUnits="userSpaceOnUse">
-          <circle cx="6" cy="6" r="4.3" fill="url(#gl-nub)"/>
-          <circle cx="17" cy="17" r="4.3" fill="url(#gl-nub)"/>
-        </pattern>
-      </defs>
-
-      <ellipse cx="152" cy="382" rx="86" ry="12" fill="#0f172a" opacity=".16" filter="url(#sp-blur)"/>
-
-      <g filter="url(#sp-shadow)">
-        <!-- pouce -->
-        <g transform="rotate(-22 68 240)">
-          <rect x="38" y="178" width="62" height="126" rx="31" fill="url(#gl-body)"/>
-          <rect x="38" y="178" width="62" height="126" rx="31" fill="url(#gl-nubs)"/>
-        </g>
-
-        <!-- doigts -->
-        <g>
-          <g transform="rotate(10 255 148)">
-            <rect x="236" y="96" width="38" height="106" rx="19" fill="url(#gl-body)"/>
-            <rect x="236" y="96" width="38" height="106" rx="19" fill="url(#gl-nubs)"/>
-          </g>
-          <g transform="rotate(4 213 132)">
-            <rect x="192" y="62" width="42" height="142" rx="21" fill="url(#gl-body)"/>
-            <rect x="192" y="62" width="42" height="142" rx="21" fill="url(#gl-nubs)"/>
-          </g>
-          <g transform="rotate(-1 168 125)">
-            <rect x="146" y="48" width="44" height="156" rx="22" fill="url(#gl-body)"/>
-            <rect x="146" y="48" width="44" height="156" rx="22" fill="url(#gl-nubs)"/>
-          </g>
-          <g transform="rotate(-7 122 134)">
-            <rect x="100" y="64" width="44" height="142" rx="22" fill="url(#gl-body)"/>
-            <rect x="100" y="64" width="44" height="142" rx="22" fill="url(#gl-nubs)"/>
-          </g>
-        </g>
-
-        <!-- paume -->
-        <rect x="88" y="150" width="192" height="172" rx="54" fill="url(#gl-body)"/>
-        <rect x="88" y="150" width="192" height="172" rx="54" fill="url(#gl-nubs)"/>
-        <ellipse cx="144" cy="196" rx="42" ry="26" fill="#ffffff" opacity=".22" filter="url(#sp-blur)"/>
-
-        <!-- poignet -->
-        <rect x="82" y="304" width="204" height="64" rx="22" fill="url(#gl-cuff)"/>
-        <g stroke="#ffffff" stroke-opacity=".14" stroke-width="4" stroke-linecap="round">
-          <path d="M108 316 V356"/><path d="M136 316 V356"/><path d="M164 316 V356"/>
-          <path d="M192 316 V356"/><path d="M220 316 V356"/><path d="M248 316 V356"/>
-        </g>
-        <rect x="90" y="306" width="188" height="7" rx="3.5" fill="#ffffff" opacity=".13"/>
-        <!-- sangle réglable -->
-        <rect x="62" y="318" width="42" height="22" rx="11" fill="#0b5f58"/>
-        <circle cx="76" cy="329" r="5" fill="#5eead4"/>
-      </g>
-    </symbol>
-
-    <!-- ---------- Coupe-griffes sécurisé ---------- -->
-    <symbol id="ic-griffes" viewBox="0 0 300 400">
-      <defs>
-        <linearGradient id="cl-steel" x1="0" y1="0" x2="1" y2=".4">
-          <stop offset="0" stop-color="#f1f5f9"/>
-          <stop offset=".45" stop-color="#cbd5e1"/>
-          <stop offset="1" stop-color="#7d8ba1"/>
-        </linearGradient>
-        <linearGradient id="cl-grip" x1="0" y1="0" x2=".6" y2="1">
-          <stop offset="0" stop-color="#5c6b81"/>
-          <stop offset="1" stop-color="#1b2434"/>
-        </linearGradient>
-        <linearGradient id="cl-orange" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#fdba74"/>
-          <stop offset="1" stop-color="#ea7317"/>
-        </linearGradient>
-      </defs>
-
-      <ellipse cx="150" cy="374" rx="92" ry="12" fill="#0f172a" opacity=".16" filter="url(#sp-blur)"/>
-
-      <g filter="url(#sp-shadow)">
-        <!-- manches -->
-        <g stroke="url(#cl-grip)" stroke-width="32" stroke-linecap="round" fill="none">
-          <path d="M150 262 L76 348"/><path d="M150 262 L224 348"/>
-        </g>
-        <g stroke="#111a29" stroke-width="26" stroke-linecap="round" fill="none">
-          <path d="M118 302 L78 346"/><path d="M182 302 L222 346"/>
-        </g>
-        <g stroke="#f97316" stroke-width="5" stroke-linecap="round" fill="none" opacity=".92">
-          <path d="M112 310 L78 348"/><path d="M188 310 L222 348"/>
-        </g>
-        <!-- ressort de sécurité -->
-        <path d="M124 300 C138 320 162 320 176 300" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-        <path d="M130 309 C142 324 158 324 170 309" fill="none" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
-
-        <!-- bras reliant les lames à l'axe -->
-        <g stroke="url(#cl-steel)" stroke-width="26" stroke-linecap="round" fill="none">
-          <path d="M124 204 L150 256"/><path d="M176 204 L150 256"/>
-        </g>
-
-        <!-- tête : les deux lames refermées forment l'anneau de coupe -->
-        <path fill="url(#cl-steel)" fill-rule="evenodd"
-              d="M150 92 a62 68 0 1 1 -0.1 0 Z M150 118 a34 40 0 1 1 -0.1 0 Z"/>
-        <path d="M150 92 V118 M150 198 V228" stroke="#8fa0b6" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M104 122 C90 142 86 172 94 198" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity=".5"/>
-        <path d="M148 100 C124 106 108 122 100 142" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity=".38"/>
-
-        <!-- butée de sécurité : elle barre l'ouverture et limite la coupe -->
-        <rect x="96" y="148" width="108" height="21" rx="10.5" fill="url(#cl-orange)"/>
-        <rect x="96" y="148" width="108" height="7" rx="3.5" fill="#ffffff" opacity=".35"/>
-        <circle cx="194" cy="158" r="7.5" fill="#b45309"/>
-        <circle cx="194" cy="156" r="2.6" fill="#fed7aa"/>
-
-        <!-- axe -->
-        <circle cx="150" cy="262" r="20" fill="#334155"/>
-        <circle cx="150" cy="262" r="8" fill="#cbd5e1"/>
-        <path d="M144 262 H156" stroke="#64748b" stroke-width="2.4" stroke-linecap="round"/>
-      </g>
-    </symbol>
-
-    <!-- ---------- Le kit complet ---------- -->
-    <symbol id="ic-kit" viewBox="0 0 900 420">
-      <defs>
-        <linearGradient id="kt-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#fff0f5"/>
-          <stop offset=".55" stop-color="#fdf9fb"/>
-          <stop offset="1" stop-color="#eafbf6"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="14" width="900" height="392" rx="58" fill="url(#kt-bg)"/>
-      <g fill="#f4739f" opacity=".13" transform="translate(806 84) scale(1.15)">
-        <ellipse cx="0" cy="14" rx="15" ry="12"/><circle cx="-14" cy="-6" r="5.5"/><circle cx="-4" cy="-13" r="5.5"/><circle cx="7" cy="-13" r="5.5"/><circle cx="16" cy="-5" r="5.5"/>
-      </g>
-      <g fill="#2dd4bf" opacity=".16" transform="translate(70 330) scale(.95)">
-        <ellipse cx="0" cy="14" rx="15" ry="12"/><circle cx="-14" cy="-6" r="5.5"/><circle cx="-4" cy="-13" r="5.5"/><circle cx="7" cy="-13" r="5.5"/><circle cx="16" cy="-5" r="5.5"/>
-      </g>
-      <use href="#ic-brosse" width="300" height="400" transform="translate(34 6) scale(.86)"/>
-      <use href="#ic-gant" width="300" height="400" transform="translate(302 26) scale(.84)"/>
-      <use href="#ic-griffes" width="300" height="400" transform="translate(578 22) scale(.86)"/>
-    </symbol>
-  </svg>
-
   <!-- ============ 1. HAUT DE PAGE ============ -->
   <header class="site-header">
     <div class="container header-inner">
@@ -284,10 +62,9 @@
         </div>
 
         <figure class="hero-figure">
-          <svg class="prod-svg hero-svg" width="900" height="420" viewBox="0 0 900 420" role="img"
-               aria-label="Le kit complet My Fluffy Paws : la brosse auto-nettoyante, le gant de massage et le coupe-griffes sécurisé.">
-            <use href="#ic-kit" width="900" height="420"/>
-          </svg>
+          <img class="hero-img" src="assets/img/photos/kit-complet.webp" width="1024" height="559"
+               fetchpriority="high" decoding="async"
+               alt="Le kit complet My Fluffy Paws posé côte à côte : la brosse auto-nettoyante rose, le gant de massage et le coupe-griffes.">
           <figcaption class="hero-tag">3 accessoires · 1 seul kit</figcaption>
         </figure>
       </div>
@@ -343,38 +120,41 @@
         <div class="unit-grid">
           <article class="unit-card">
             <div class="unit-media">
-              <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Brosse auto-nettoyante">
-                <use href="#ic-brosse" width="300" height="400"/>
-              </svg>
+              <img src="assets/img/photos/brosse-vignette.webp" width="640" height="349"
+                   loading="lazy" decoding="async" alt="Une main brosse un cavalier king charles avec la brosse auto-nettoyante rose, les poils morts restent sur les picots.">
             </div>
-            <h3>Brosse auto-nettoyante</h3>
-            <p class="unit-desc">Nettoyage en 1 clic · <span data-brush-label>Coloris&nbsp;: Rose</span></p>
-            <p class="unit-price">19,90&nbsp;€</p>
-            <button class="btn btn-outline btn-block" type="button" data-add="brosse">Ajouter au panier</button>
+            <div class="unit-body">
+              <h3>Brosse auto-nettoyante</h3>
+              <p class="unit-desc">Nettoyage en 1 clic · <span data-brush-label>Coloris&nbsp;: Rose</span></p>
+              <p class="unit-price">19,90&nbsp;€</p>
+              <button class="btn btn-outline btn-block" type="button" data-add="brosse">Ajouter au panier</button>
+            </div>
           </article>
 
           <article class="unit-card">
             <div class="unit-media">
-              <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Gant de massage">
-                <use href="#ic-gant" width="300" height="400"/>
-              </svg>
+              <img src="assets/img/photos/gant-vignette.webp" width="640" height="349"
+                   loading="lazy" decoding="async" alt="Un chat tigré se fait caresser avec le gant de massage bleu, les poils morts restent accrochés aux picots.">
             </div>
-            <h3>Gant de massage</h3>
-            <p class="unit-desc">Retient les poils pendant les caresses</p>
-            <p class="unit-price">14,90&nbsp;€</p>
-            <button class="btn btn-outline btn-block" type="button" data-add="gant">Ajouter au panier</button>
+            <div class="unit-body">
+              <h3>Gant de massage</h3>
+              <p class="unit-desc">Retient les poils pendant les caresses</p>
+              <p class="unit-price">14,90&nbsp;€</p>
+              <button class="btn btn-outline btn-block" type="button" data-add="gant">Ajouter au panier</button>
+            </div>
           </article>
 
           <article class="unit-card">
             <div class="unit-media">
-              <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Coupe-griffes sécurisé">
-                <use href="#ic-griffes" width="300" height="400"/>
-              </svg>
+              <img src="assets/img/photos/coupe-griffes-vignette.webp" width="640" height="349"
+                   loading="lazy" decoding="async" alt="Les griffes d'un chat sont coupées délicatement avec le coupe-griffes sécurisé.">
             </div>
-            <h3>Coupe-griffes sécurisé</h3>
-            <p class="unit-desc">Butée de sécurité anti-blessure</p>
-            <p class="unit-price">14,90&nbsp;€</p>
-            <button class="btn btn-outline btn-block" type="button" data-add="coupe-griffes">Ajouter au panier</button>
+            <div class="unit-body">
+              <h3>Coupe-griffes sécurisé</h3>
+              <p class="unit-desc">Butée de sécurité anti-blessure</p>
+              <p class="unit-price">14,90&nbsp;€</p>
+              <button class="btn btn-outline btn-block" type="button" data-add="coupe-griffes">Ajouter au panier</button>
+            </div>
           </article>
         </div>
 
@@ -395,9 +175,8 @@
         <!-- Brosse -->
         <article class="feature">
           <div class="feature-media">
-            <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Brosse auto-nettoyante, coloris sélectionné">
-              <use href="#ic-brosse" width="300" height="400"/>
-            </svg>
+            <img src="assets/img/photos/brosse.webp" width="1024" height="559"
+                 loading="lazy" decoding="async" alt="Gros plan sur la brosse auto-nettoyante en pleine séance de brossage, la touffe de poils morts prise dans les picots.">
           </div>
 
           <div class="feature-body">
@@ -430,6 +209,7 @@
                 </button>
               </div>
               <p class="colors-current">Sélection&nbsp;: <strong data-brush-current>Rose</strong></p>
+              <p class="colors-note">Les photos montrent le modèle rose&nbsp;; votre brosse est expédiée dans le coloris sélectionné.</p>
             </div>
           </div>
         </article>
@@ -437,9 +217,8 @@
         <!-- Gant -->
         <article class="feature feature-reverse">
           <div class="feature-media">
-            <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Gant de massage avec picots souples">
-              <use href="#ic-gant" width="300" height="400"/>
-            </svg>
+            <img src="assets/img/photos/gant.webp" width="1024" height="559"
+                 loading="lazy" decoding="async" alt="Le gant de massage glissé sur la main, en train de caresser un chat visiblement détendu.">
           </div>
           <div class="feature-body">
             <h3>Le Gant de massage</h3>
@@ -460,9 +239,8 @@
         <!-- Coupe-griffes -->
         <article class="feature">
           <div class="feature-media">
-            <svg class="prod-svg" width="300" height="400" viewBox="0 0 300 400" role="img" aria-label="Coupe-griffes avec butée de sécurité orange">
-              <use href="#ic-griffes" width="300" height="400"/>
-            </svg>
+            <img src="assets/img/photos/coupe-griffes.webp" width="1024" height="559"
+                 loading="lazy" decoding="async" alt="La coupe d'une griffe de chat, patte tenue d'une main et coupe-griffes de l'autre.">
           </div>
           <div class="feature-body">
             <h3>Le Coupe-griffes sécurisé</h3>
