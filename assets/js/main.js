@@ -41,6 +41,14 @@
 
   var COULEURS = { 'Rose': '#f4739f', 'Bleu': '#4a90d9', 'Gris': '#8a94a6' };
 
+  /* La photo de la section « La Brosse auto-nettoyante » suit le coloris choisi.
+     L'adjectif s'accorde : une brosse rose, bleue ou grise. */
+  var PHOTOS_BROSSE = {
+    'Rose': { fichier: 'assets/img/photos/brosse-produit.webp', accord: 'rose' },
+    'Bleu': { fichier: 'assets/img/photos/brosse-produit-bleu.webp', accord: 'bleue' },
+    'Gris': { fichier: 'assets/img/photos/brosse-produit-gris.webp', accord: 'grise' }
+  };
+
   /* ---------- utilitaires ---------- */
 
   function euros(valeur) {
@@ -84,6 +92,33 @@
     });
     document.querySelectorAll('[data-brush-label]').forEach(function (el) {
       el.textContent = 'Coloris : ' + couleurBrosse;
+    });
+
+    var photo = document.querySelector('[data-brush-photo]');
+    var variante = PHOTOS_BROSSE[couleurBrosse];
+    if (photo && variante) {
+      photo.src = variante.fichier;
+      photo.alt = 'La brosse auto-nettoyante ' + variante.accord +
+        ' tenue en main, sa touffe de poils morts encore prise dans les picots.';
+    }
+  }
+
+  /* Les autres coloris sont chargés dès que le visiteur approche des pastilles :
+     le changement paraît alors instantané. */
+  var couleursPrechargees = false;
+  function prechargerCouleurs() {
+    if (couleursPrechargees) { return; }
+    couleursPrechargees = true;
+    Object.keys(PHOTOS_BROSSE).forEach(function (nom) {
+      var image = new Image();
+      image.src = PHOTOS_BROSSE[nom].fichier;
+    });
+  }
+
+  var blocCouleurs = document.querySelector('.colors');
+  if (blocCouleurs) {
+    ['pointerenter', 'focusin', 'touchstart'].forEach(function (evenement) {
+      blocCouleurs.addEventListener(evenement, prechargerCouleurs, { once: true, passive: true });
     });
   }
 
