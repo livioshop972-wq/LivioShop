@@ -17,11 +17,18 @@ const TRAITEMENT = `
 function rousseur(d, L, H, apercu) {
   const n = L * H;
 
-  // Le chat : tout le bas de l'image, plus la tête en haut à droite.
+  // Contour du chat, relevé sur la photo : la tête à droite, puis le dos qui
+  // descend vers la gauche. Tout le reste — manche, main, gant, fond — est hors zone.
   const zoneChat = (x, y) => {
-    if (x < 150 && y < 215) return false;   // manche de la personne
-    if (y > 112) return true;               // corps
-    return x > 415 && y > 45;               // tête et oreilles
+    if (x >= 455 && x <= 515 && y >= 20 && y < 76) return true;   // oreille dressée
+    if (x >= 415 && x <= 622 && y >= 76 && y <= 236) return true; // tête et joues
+    if (x > 622) return y >= 205;                                 // fond à droite du chat
+    const dosDuChat =
+      x < 100 ? 238 :
+      x < 200 ? 218 :
+      x < 300 ? 202 :
+      x < 400 ? 186 : 170;
+    return y >= dosDuChat;
   };
 
   const sat = (r, g, b) => {
