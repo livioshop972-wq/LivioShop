@@ -20,14 +20,29 @@ function rousseur(d, L, H, apercu) {
   // Contour du chat, relevé sur la photo : la tête à droite, puis le dos qui
   // descend vers la gauche. Tout le reste — manche, main, gant, fond — est hors zone.
   const zoneChat = (x, y) => {
-    if (x >= 455 && x <= 515 && y >= 20 && y < 76) return true;   // oreille dressée
-    if (x >= 415 && x <= 622 && y >= 76 && y <= 236) return true; // tête et joues
-    if (x > 622) return y >= 205;                                 // fond à droite du chat
+    // Tête : largeur relevée à quatre hauteurs, interpolée entre les deux.
+    // Volontairement un peu resserrée — mieux vaut un liseré gris sur le chat
+    // qu'une tache orange dans le tricot du fond.
+    const profil = [
+      [46, 500, 505], [70, 492, 510], [90, 478, 526], [110, 435, 546],
+      [130, 412, 568], [150, 400, 592], [175, 396, 620], [200, 394, 638],
+      [230, 392, 640]
+    ];
+    for (let k = 0; k < profil.length - 1; k++) {
+      const [y1, min1, max1] = profil[k], [y2, min2, max2] = profil[k + 1];
+      if (y >= y1 && y <= y2) {
+        const t = (y - y1) / (y2 - y1);
+        if (x >= min1 + (min2 - min1) * t && x <= max1 + (max2 - max1) * t) return true;
+      }
+    }
+
+    // corps : ligne de dos qui descend vers la gauche
+    if (x > 618 && y < 255) return false;   // tricot visible à droite, sous l'oreille
     const dosDuChat =
       x < 100 ? 238 :
       x < 200 ? 218 :
       x < 300 ? 202 :
-      x < 400 ? 186 : 170;
+      x < 400 ? 186 : 176;
     return y >= dosDuChat;
   };
 
@@ -45,9 +60,12 @@ function rousseur(d, L, H, apercu) {
       const i = (y * L + x) * 4;
       const r = d[i], g = d[i + 1], b = d[i + 2];
       if (b >= r - 3) continue;             // le gant bleu et les ombres froides
+      // Dans le contour de la tête il n'y a pas de fond : on y accepte
+      // l'oreille rosée, plus saturée que la fourrure.
+      const dansLaTete = y <= 232 && x >= 390;
       const s = sat(r, g, b);
-      if (s > 0.34) continue;               // le fond chaud et saturé
-      if (r > 205) continue;                // la couverture claire
+      if (s > (dansLaTete ? 0.52 : 0.34)) continue;
+      if (r > (dansLaTete ? 216 : 205)) continue;
       m[y * L + x] = 1;
     }
   }
