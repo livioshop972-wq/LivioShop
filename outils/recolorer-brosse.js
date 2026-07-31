@@ -1,4 +1,12 @@
-/* Recolorisation de la brosse, deuxième approche.
+/* Génère les variantes bleue et grise de la photo de la brosse à partir de
+   assets/img/photos/brosse-produit.webp (le modèle rose).
+
+   Lancer un serveur local à la racine du dépôt, puis : node outils/recolorer-brosse.js
+
+   Prérequis : Playwright (npm install --no-save playwright), et un serveur
+   statique servant la racine du dépôt sur le port 8123 :
+     python3 -m http.server 8123
+
 
    1. masque strict sur le rose franc
    2. fermeture morphologique : les ombres et les trous internes sont rattrapés
@@ -6,7 +14,7 @@
    4. la teinte est remplacée en conservant la luminosité (les reflets restent)   */
 const { chromium } = require('playwright');
 const fs = require('fs');
-const dir = '/tmp/claude-0/-home-user-LivioShop/6754ba14-f586-5d6a-98f3-2d76e66e283b/scratchpad/';
+const RACINE = require('path').join(__dirname, '..');
 
 const CIBLES = {
   bleu:    { teinte: 0.578, satMax: 0.40, satFacteur: 1.00 },
@@ -171,8 +179,8 @@ function traiter(d, L, H, cible, apercu) {
     }, { cible, apercu });
 
     const chemin = apercu
-      ? dir + 'masque2.png'
-      : '/home/user/LivioShop/assets/img/photos/brosse-produit-' + nom + '.webp';
+      ? RACINE + '/outils/masque-brosse.png'
+      : RACINE + '/assets/img/photos/brosse-produit-' + nom + '.webp';
     fs.writeFileSync(chemin, Buffer.from(data, 'base64'));
     console.log(nom, '->', chemin.split('/').pop(), (fs.statSync(chemin).size / 1024).toFixed(0) + ' Ko');
   }

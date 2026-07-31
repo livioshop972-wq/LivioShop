@@ -30,6 +30,7 @@ assets/css/styles.css   feuille de style
 assets/js/main.js       panier, coloris, passage en caisse
 assets/img/photos/      photos produit
 build.js                génère dist/site.html (fichier unique)
+outils/                 retouches photo (recolorisation) et images sources
 ```
 
 ## Mettre la boutique en ligne
