@@ -90,10 +90,6 @@
     document.querySelectorAll('[data-brush-current]').forEach(function (el) {
       el.textContent = couleurBrosse;
     });
-    document.querySelectorAll('[data-brush-label]').forEach(function (el) {
-      el.textContent = 'Coloris : ' + couleurBrosse;
-    });
-
     var photo = document.querySelector('[data-brush-photo]');
     var variante = PHOTOS_BROSSE[couleurBrosse];
     if (photo && variante) {
@@ -214,8 +210,14 @@
 
           var meta = produit.note + (ligne.couleur ? ' · ' + ligne.couleur : '');
 
+          // pour la brosse, on montre la photo du coloris commandé
+          var vignette = produit.img;
+          if (ligne.id === 'brosse' && PHOTOS_BROSSE[ligne.couleur]) {
+            vignette = PHOTOS_BROSSE[ligne.couleur].fichier;
+          }
+
           el.innerHTML =
-            '<div class="cart-thumb"><img src="' + produit.img + '" alt="" loading="lazy"></div>' +
+            '<div class="cart-thumb"><img src="' + vignette + '" alt="" loading="lazy"></div>' +
             '<div>' +
               '<div class="cart-name"></div>' +
               '<div class="cart-meta"></div>' +
