@@ -27,9 +27,10 @@ function traiter(d, L, H, cible, apercu) {
   // La main tient le manche : on ne repeint que ce qui est hors de la prise.
   const dedans = (x, y) => {
     if (y >= 44 && y < 278) return x > 412 && x < 658;   // tête
-    if (y >= 278 && y < 298) return x > 470 && x < 600;  // manche au-dessus des doigts
-    if (y >= 348 && y < 452) return x > 508 && x < 557;  // manche visible entre les doigts
-    if (y >= 452 && y <= 516) return x > 472 && x < 566;  // bout du manche sous la main
+    // Le manche est visible sur toute sa longueur, entre les doigts (à gauche)
+    // et la paume (à droite) : une bande étroite, relevée sur la photo.
+    if (y >= 278 && y < 460) return x > 490 && x < 558;
+    if (y >= 460 && y <= 516) return x > 480 && x < 553;  // le bout s'évase moins
     return false;
   };
   // touffe de poils morts : elle ne doit pas changer de couleur
