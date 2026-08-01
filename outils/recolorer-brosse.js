@@ -17,8 +17,8 @@ const fs = require('fs');
 const RACINE = require('path').join(__dirname, '..');
 
 const CIBLES = {
-  bleu:    { teinte: 0.578, satMax: 0.40, satFacteur: 1.00 },
-  gris:    { teinte: 0.60,  satMax: 0.06, satFacteur: 0.14 },
+  bleu:    { teinte: 0.578, satMax: 0.40, satFacteur: 1.00, satPoils: 0.26 },
+  gris:    { teinte: 0.09,  satMax: 0.035, satFacteur: 0.10, satPoils: 0.16 },
   _apercu: null
 };
 
@@ -33,22 +33,25 @@ function traiter(d, L, H, cible, apercu) {
     if (y >= 460 && y <= 516) return x > 480 && x < 553;  // le bout s'évase moins
     return false;
   };
-  // touffe de poils morts : elle ne doit pas changer de couleur
+  // Emprise de la touffe de poils morts. Elle sert seulement à empêcher la
+  // fermeture morphologique de la combler ; ce sont les poils eux-mêmes,
+  // reconnus à leur teinte brune, qui sont réellement préservés.
   const poils = (x, y) => {
-    const dx = (x - 504) / 50, dy = (y - 180) / 46;
-    return dx * dx + dy * dy < 1;
+    const dx = (x - 507) / 51, dy = (y - 174) / 42;
+    const r2 = dx * dx + dy * dy;
+    return r2 < 1 ? 1 : 0;
   };
 
   const n = L * H;
   let m = new Uint8Array(n);
   for (let y = 0; y < H; y++) {
     for (let x = 0; x < L; x++) {
-      if (!dedans(x, y) || poils(x, y)) continue;
+      if (!dedans(x, y) || poils(x, y) > 0) continue;
       const i = (y * L + x) * 4;
       const r = d[i], g = d[i + 1], b = d[i + 2];
       const d1 = r - g, d2 = g - b;
       const tete = y < 278;
-      const seuil = tete ? 0.56 : 0.40;
+      const seuil = tete ? (r > 195 ? 0.78 : 0.56) : 0.40;
       const mini = tete ? 11 : 16;
       if (d1 > mini && d2 >= 0 && d2 < seuil * d1 && r > 55) m[y * L + x] = 1;
     }
@@ -92,11 +95,22 @@ function traiter(d, L, H, cible, apercu) {
     for (let x = 0; x < L; x++) {
       const p = y * L + x;
       if (!m[p]) continue;
-      if (!dedans(x, y) || poils(x, y)) { m[p] = 0; continue; }
+      if (!dedans(x, y) || poils(x, y) > 0) { m[p] = 0; continue; }
       const i = p * 4;
       const d1 = d[i] - d[i + 1], d2 = d[i + 1] - d[i + 2];
-      const limite = y < 278 ? 0.70 : 0.62;
+      const limite = y < 278 ? (d[i] > 195 ? 0.80 : 0.50) : 0.62;
       if (d1 < 6 || d2 < 0 || d2 > limite * d1) m[p] = 0;
+    }
+  }
+
+  // Sous la touffe, le coussin reste du plastique : il doit suivre le coloris,
+  // sinon il forme une tache chaude au milieu d'une brosse bleue ou grise.
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < L; x++) {
+      if (poils(x, y) <= 0) continue;
+      const p = y * L + x, i = p * 4;
+      const d1 = d[i] - d[i + 1], d2 = d[i + 1] - d[i + 2];
+      if (d1 > 14 && d2 >= 0 && d2 < 0.38 * d1) m[p] = 1;
     }
   }
 
@@ -144,15 +158,34 @@ function traiter(d, L, H, cible, apercu) {
 
   for (let p = 0; p < n; p++) {
     const f = flou[p];
-    if (f <= 0.02) continue;
+    const x = p % L, y = (p - x) / L;
     const i = p * 4;
-    if (apercu) { d[i] = 0; d[i + 1] = Math.round(255 * f); d[i + 2] = 0; continue; }
     const r = d[i], g = d[i + 1], b = d[i + 2];
-    const [, s, l] = versHSL(r, g, b);
-    const [nr, ng, nb] = versRGB(cible.teinte, Math.min(cible.satMax, s * cible.satFacteur), l);
-    d[i]     = Math.round(r + (nr - r) * f);
-    d[i + 1] = Math.round(g + (ng - g) * f);
-    d[i + 2] = Math.round(b + (nb - b) * f);
+
+    if (apercu) {
+      if (f > 0.02) { d[i] = 0; d[i + 1] = Math.round(255 * f); d[i + 2] = 0; }
+      continue;
+    }
+
+    // Les poils morts empruntent leur rose à la brosse. On retire cette chaleur
+    // AVANT la recolorisation : sinon les pixels de bordure, recolorés à
+    // moitié seulement, conservent un liseré orange autour de la touffe.
+    let cr = r, cg = g, cb = b;
+    if (poils(x, y)) {
+      const [h, s, l] = versHSL(cr, cg, cb);
+      const neutre = versRGB(h, s * cible.satPoils, l);
+      cr = neutre[0]; cg = neutre[1]; cb = neutre[2];
+    }
+
+    if (f > 0.02) {
+      const [, s, l] = versHSL(cr, cg, cb);
+      const [nr, ng, nb] = versRGB(cible.teinte, Math.min(cible.satMax, s * cible.satFacteur), l);
+      cr = Math.round(cr + (nr - cr) * f);
+      cg = Math.round(cg + (ng - cg) * f);
+      cb = Math.round(cb + (nb - cb) * f);
+    }
+
+    d[i] = cr; d[i + 1] = cg; d[i + 2] = cb;
   }
 }
 `;
