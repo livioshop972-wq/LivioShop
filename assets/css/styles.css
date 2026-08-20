@@ -235,6 +235,13 @@ a  { color: var(--pink-600); }
 .unit-body .btn { margin-top: auto; }
 .unit-note { text-align: center; color: var(--ink-soft); margin-top: 1.8rem; }
 
+/* pastilles de coloris sur la fiche produit */
+.unit-colors { margin: .2rem 0 1rem; }
+.unit-colors .colors-title { font-size: .92rem; margin-bottom: .5rem; }
+.swatches-sm { justify-content: center; gap: .55rem; }
+.swatches-sm .swatch { width: 34px; height: 34px; border-width: 2px; }
+.unit-colors .colors-current { font-size: .88rem; margin-top: .55rem; }
+
 /* ---------- Accessoires ---------- */
 .feature {
   display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(1.5rem, 4vw, 3.5rem);
@@ -278,7 +285,8 @@ a  { color: var(--pink-600); }
 .swatch:hover { transform: scale(1.06); }
 .swatch.is-active { box-shadow: 0 0 0 3px var(--sw); }
 .colors-current { font-size: .92rem; margin: .8rem 0 0; }
-.colors-note { font-size: .82rem; color: var(--muted); margin: .3rem 0 0; }
+.feature-note { font-size: .95rem; color: var(--ink-soft); margin-top: 1.4rem;
+  padding-top: 1.2rem; border-top: 1px dashed var(--line); }
 
 /* ---------- Rappel ---------- */
 .recap { background: linear-gradient(135deg, var(--pink-500), var(--pink-600)); color: #fff; padding: clamp(2.2rem, 5vw, 3.2rem) 0; }

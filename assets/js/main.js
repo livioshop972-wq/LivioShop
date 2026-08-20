@@ -90,12 +90,13 @@
     document.querySelectorAll('[data-brush-current]').forEach(function (el) {
       el.textContent = couleurBrosse;
     });
-    var photo = document.querySelector('[data-brush-photo]');
     var variante = PHOTOS_BROSSE[couleurBrosse];
-    if (photo && variante) {
-      photo.src = variante.fichier;
-      photo.alt = 'La brosse auto-nettoyante ' + variante.accord +
-        ' tenue en main, sa touffe de poils morts encore prise dans les picots.';
+    if (variante) {
+      document.querySelectorAll('[data-brush-photo]').forEach(function (photo) {
+        photo.src = variante.fichier;
+        photo.alt = 'La brosse auto-nettoyante ' + variante.accord +
+          ' tenue en main, sa touffe de poils morts encore prise dans les picots.';
+      });
     }
   }
 
@@ -111,12 +112,11 @@
     });
   }
 
-  var blocCouleurs = document.querySelector('.colors');
-  if (blocCouleurs) {
+  document.querySelectorAll('.swatches').forEach(function (bloc) {
     ['pointerenter', 'focusin', 'touchstart'].forEach(function (evenement) {
-      blocCouleurs.addEventListener(evenement, prechargerCouleurs, { once: true, passive: true });
+      bloc.addEventListener(evenement, prechargerCouleurs, { once: true, passive: true });
     });
-  }
+  });
 
   swatches.forEach(function (btn) {
     btn.addEventListener('click', function () {

@@ -120,12 +120,26 @@
         <div class="unit-grid">
           <article class="unit-card">
             <div class="unit-media">
-              <img src="assets/img/photos/brosse-vignette.webp" width="640" height="349"
-                   loading="lazy" decoding="async" alt="Une main brosse un cavalier king charles avec la brosse auto-nettoyante rose, les poils morts restent sur les picots.">
+              <img data-brush-photo src="assets/img/photos/brosse-produit.webp" width="1024" height="559"
+                   loading="lazy" decoding="async" alt="La brosse auto-nettoyante rose tenue en main, sa touffe de poils morts encore prise dans les picots.">
             </div>
             <div class="unit-body">
               <h3>Brosse auto-nettoyante</h3>
-              <p class="unit-desc">Nettoyage en 1 clic · <a href="#accessoires">3 coloris au choix</a></p>
+              <p class="unit-desc">Nettoyage en 1 clic</p>
+
+              <div class="unit-colors">
+                <p class="colors-title" id="titre-coloris-fiche">Choisissez votre coloris&nbsp;:</p>
+                <div class="swatches swatches-sm" role="radiogroup" aria-labelledby="titre-coloris-fiche">
+                  <button type="button" class="swatch is-active" role="radio" aria-checked="true"
+                          data-color="Rose" style="--sw:#f4739f"><span class="sr-only">Rose</span></button>
+                  <button type="button" class="swatch" role="radio" aria-checked="false"
+                          data-color="Bleu" style="--sw:#4a90d9"><span class="sr-only">Bleu</span></button>
+                  <button type="button" class="swatch" role="radio" aria-checked="false"
+                          data-color="Gris" style="--sw:#8a94a6"><span class="sr-only">Gris</span></button>
+                </div>
+                <p class="colors-current">Sélection&nbsp;: <strong data-brush-current>Rose</strong></p>
+              </div>
+
               <p class="unit-price">19,90&nbsp;€</p>
               <button class="btn btn-outline btn-block" type="button" data-add="brosse">Ajouter au panier</button>
             </div>
@@ -175,8 +189,8 @@
         <!-- Brosse -->
         <article class="feature">
           <div class="feature-media">
-            <img data-brush-photo src="assets/img/photos/brosse-produit.webp" width="1024" height="559"
-                 loading="lazy" decoding="async" alt="La brosse auto-nettoyante rose tenue en main, sa touffe de poils morts encore prise dans les picots.">
+            <img src="assets/img/photos/brosse-vignette.webp" width="640" height="349"
+                 loading="lazy" decoding="async" alt="Une main brosse un cavalier king charles avec la brosse auto-nettoyante, les poils morts restent sur les picots.">
           </div>
 
           <div class="feature-body">
@@ -192,25 +206,10 @@
               <li>Poignée antidérapante, prise en main confortable</li>
             </ul>
 
-            <div class="colors">
-              <p class="colors-title" id="titre-couleurs">Choisissez votre coloris&nbsp;:</p>
-              <div class="swatches" role="radiogroup" aria-labelledby="titre-couleurs">
-                <button type="button" class="swatch is-active" role="radio" aria-checked="true"
-                        data-color="Rose" style="--sw:#f4739f">
-                  <span class="sr-only">Rose</span>
-                </button>
-                <button type="button" class="swatch" role="radio" aria-checked="false"
-                        data-color="Bleu" style="--sw:#4a90d9">
-                  <span class="sr-only">Bleu</span>
-                </button>
-                <button type="button" class="swatch" role="radio" aria-checked="false"
-                        data-color="Gris" style="--sw:#8a94a6">
-                  <span class="sr-only">Gris</span>
-                </button>
-              </div>
-              <p class="colors-current">Sélection&nbsp;: <strong data-brush-current>Rose</strong></p>
-              <p class="colors-note">La photo suit votre choix. Ailleurs sur la page, la brosse est présentée en rose.</p>
-            </div>
+            <p class="feature-note">
+              Trois coloris&nbsp;: rose, bleu et gris.
+              <a href="#unite">Choisissez le vôtre sur la fiche produit</a>.
+            </p>
           </div>
         </article>
 

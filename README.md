@@ -61,9 +61,10 @@ python3 -m http.server 8000
   dans `api/checkout.js` : le navigateur n'envoie que des identifiants et des
   quantités, jamais de montant. Voir [PAIEMENT.md](PAIEMENT.md) pour la mise en
   route, et `node test/checkout.test.js` pour la suite de tests.
-- Le coloris choisi dans la section « La Brosse auto-nettoyante » change la
-  photo affichée, met à jour la fiche à l'unité et suit l'article jusque dans
-  le panier et la commande Stripe. Les variantes bleue et grise sont obtenues
+- Le coloris se choisit sur la fiche à l'unité, là où l'on achète : les trois
+  pastilles y sont visibles, la photo suit la sélection, et le coloris suit
+  l'article jusque dans le panier et la commande Stripe. Le bloc de
+  présentation garde la mise en situation et renvoie vers la fiche. Les variantes bleue et grise sont obtenues
   par recolorisation de la photo rose (`outils/recolorer-brosse.js`) : à
   remplacer par de vraies photos dès que possible.
 - Responsive (grille 3 → 2 → 1 colonne), barre d'achat fixe sur mobile,
