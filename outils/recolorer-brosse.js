@@ -25,11 +25,21 @@ const CIBLES = {
 const TRAITEMENT = `
 function traiter(d, L, H, cible, apercu) {
   // La main tient le manche : on ne repeint que ce qui est hors de la prise.
+  // L'index passe devant le manche, en diagonale : sa chair ne doit pas être
+  // repeinte. Ses deux bords sont relevés sur la photo.
+  const surIndex = (x, y) => {
+    if (x < 500) return false;
+    const bordHaut = 293 - 0.34 * (x - 505);
+    const bordBas  = 352 + 0.40 * (x - 505);
+    return y >= bordHaut && y <= bordBas;
+  };
+
   const dedans = (x, y) => {
-    if (y >= 44 && y < 278) return x > 412 && x < 658;   // tête
+    if (surIndex(x, y)) return false;
+    if (y >= 44 && y < 258) return x > 412 && x < 658;   // tête
     // Le manche est visible sur toute sa longueur, entre les doigts (à gauche)
     // et la paume (à droite) : une bande étroite, relevée sur la photo.
-    if (y >= 278 && y < 460) return x > 490 && x < 558;
+    if (y >= 258 && y < 460) return x > 490 && x < 558;
     if (y >= 460 && y <= 516) return x > 480 && x < 553;  // le bout s'évase moins
     return false;
   };
@@ -50,7 +60,7 @@ function traiter(d, L, H, cible, apercu) {
       const i = (y * L + x) * 4;
       const r = d[i], g = d[i + 1], b = d[i + 2];
       const d1 = r - g, d2 = g - b;
-      const tete = y < 278;
+      const tete = y < 258;
       const seuil = tete ? (r > 195 ? 0.78 : 0.56) : 0.40;
       const mini = tete ? 11 : 16;
       if (d1 > mini && d2 >= 0 && d2 < seuil * d1 && r > 55) m[y * L + x] = 1;
@@ -98,7 +108,7 @@ function traiter(d, L, H, cible, apercu) {
       if (!dedans(x, y) || poils(x, y) > 0) { m[p] = 0; continue; }
       const i = p * 4;
       const d1 = d[i] - d[i + 1], d2 = d[i + 1] - d[i + 2];
-      const limite = y < 278 ? (d[i] > 195 ? 0.80 : 0.50) : 0.62;
+      const limite = y < 258 ? (d[i] > 195 ? 0.80 : 0.50) : 0.62;
       if (d1 < 6 || d2 < 0 || d2 > limite * d1) m[p] = 0;
     }
   }
@@ -163,7 +173,11 @@ function traiter(d, L, H, cible, apercu) {
     const r = d[i], g = d[i + 1], b = d[i + 2];
 
     if (apercu) {
-      if (f > 0.02) { d[i] = 0; d[i + 1] = Math.round(255 * f); d[i + 2] = 0; }
+      if (f > 0.02) {
+        d[i]     = Math.round(r * (1 - 0.6 * f));
+        d[i + 1] = Math.round(g * (1 - 0.6 * f) + 255 * 0.6 * f);
+        d[i + 2] = Math.round(b * (1 - 0.6 * f));
+      }
       continue;
     }
 
